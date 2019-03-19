@@ -1,6 +1,6 @@
 from flask import Flask, g
 from flask import render_template, flash, redirect, url_for, request
-
+import json
 import models
 # from forms import ReviewForm 
 # create the above form
@@ -22,11 +22,14 @@ def after_request(res):
   return res
 
 @app.route('/', methods=['GET', 'POST'])
-def hello_world():
-  if request.method == 'GET':
-    return 'Hello, World!'
-  elif request.method == 'POST':
-    return
+def index():
+  return render_template('hello.html')
+
+@app.route('/barbers', methods=['GET', 'POST'])
+def barbers():
+  with open('barbers.json') as json_data:
+    barbers = json.load(json_data)
+    return render_template('barbers.html', barbers=barbers)
 
 if __name__ == '__main__':
   models.initialize()
