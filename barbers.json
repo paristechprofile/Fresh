@@ -1,0 +1,20 @@
+[
+  {
+  "name": "Cornelius",
+  "neighborhood": "Dogpatch",
+  "profile_pic": "URL.com",
+  "portfolio_pic": "PICS.com"
+  },
+  {
+  "name": "Cedric",
+  "neighborhood": "West Oakland",
+  "profile_pic": "URL.com",
+  "portfolio_pic": "PICS.com"
+  },
+  {
+  "name": "Chris Rock",
+  "neighborhood": "Dogpatch",
+  "profile_pic": "URL.com",
+  "portfolio_pic": "PICS.com"
+  }
+]
