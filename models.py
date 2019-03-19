@@ -17,7 +17,7 @@ class User(UserMixin, Model):
     database = DATABASE
   
   @classmethod
-  def create_user(cls, username, email, password, admin=false)
+  def create_user(cls, username, email, password, admin=False):
     try:
       cls.create(
         username=username,
