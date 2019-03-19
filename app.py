@@ -30,6 +30,7 @@ def before_request():
   """Connect to the database before each request."""
   g.db = models.DATABASE
   g.db.connect()
+  g.user = current_user
 
 @app.after_request
 def after_request(res):
@@ -37,9 +38,26 @@ def after_request(res):
   g.db.close()
   return res
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-  return render_template('hello.html')
+  stream = models.Post.select().limit(100)
+  return render_template('stream.html', stream=stream)
+
+@app.route('/stream')
+@app.route('/stream/<username>')
+@login_required
+
+def stream(username=None):
+  template = 'stream.html'
+  if username and username != current_user.username:
+    user = models.User.select().where(models.User.username == username).get()
+    stream = user.posts.limit(100)
+  else:
+    stream = current_user.get_stream().limit(100)
+    user = current_user
+  if username:
+    template = 'user_profile.html'
+  return render_template(template, stream=stream, user=user)
 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
@@ -83,6 +101,17 @@ def logout():
   logout_user()
   flash("You've been logged out", "success")
   return redirect(url_for('index'))
+
+@app.route('/new_post', methods=('GET', 'POST'))
+@login_required
+def post():
+    form = forms.PostForm()
+    if form.validate_on_submit():
+        models.Post.create(user=g.user._get_current_object(),
+                            content=form.content.data.strip())
+        flash("Message posted! Thanks!", "success")
+        return redirect(url_for('index'))
+    return render_template('posts.html', form=form)
 
 if __name__ == '__main__':
   models.initialize()
