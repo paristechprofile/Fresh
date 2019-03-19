@@ -43,6 +43,11 @@ class RegisterForm(Form):
     'Confirm Password',
     validators=[DataRequired()]
     )
+
+class LoginForm(Form):
+  email = StringField('Email', validators=[DataRequired(), Email()])
+  password = PasswordField('Password', validators=[DataRequired()])
+
 # create the class and variables to house Field definitions
 class ReviewForm(Form):
   barber = TextField('By:')

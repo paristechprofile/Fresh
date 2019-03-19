@@ -1,5 +1,4 @@
-[
-  {
+[{
   "name": "Cornelius",
   "neighborhood": "Dogpatch",
   "profile_pic": "URL.com",
@@ -16,5 +15,4 @@
   "neighborhood": "Dogpatch",
   "profile_pic": "URL.com",
   "portfolio_pic": "PICS.com"
-  }
-]
+}]
