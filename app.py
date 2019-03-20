@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, g, request
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
@@ -44,22 +44,53 @@ def index():
 
 
 
-# @app.route('/reviews', methods=['GET', 'POST'])
-# def review():
-#     # the form variable we send down to the template needs to be added here
-#   form = ReviewForm()
-#   return render_template("new_review.html", title="New Review", form=form)
-
-
-##########################################################
-#################### Setting Up A Post ###################
-##########################################################
 @app.route('/reviews', methods=['GET', 'POST'])
+def review():
+    # the form variable we send down to the template needs to be added here
+  form = ReviewForm()
+  return render_template("new_review.html", title="New Review", form=form)
+
+
+# ##########################################################
+# #################### Setting Up A Post ###################
+# ##########################################################
+
+@app.route('/review/<id>/', methods=['POST'])
+def delete_review(id=None):
+  form = ReviewForm()
+  print(id)
+  print(id)
+  print(id)
+  print(id)
+  print(id)
+    
+  review_id = int(id)
+
+  review = models.Review.get(models.Review.id == review_id)
+
+  review.delete_instance()
+  
+  reviews = models.Review.select().limit(100)
+
+
+  return render_template("new_review.html", reviews=reviews, form=form)
+
+@app.route('/reviews/', methods=['GET', 'POST'])
+@app.route('/reviews/', methods=['GET'])
 def reviews():
   form = ReviewForm()
+  # if request.method == 'GET' and delete != None:
+  #   return redirect('new_review.html')
+  # if request.args.get('id') == 'chike':
+  #   print('hello , hello , hello')
+  #   return 'hello'
+
+  print(request.args.get('id'))
+
   if request.method == 'GET':
     reviews = models.Review.select().limit(100)
     return render_template("new_review.html", reviews=reviews, form=form)
+
   else:
       # checks if the form submission is valid
     if form.validate_on_submit():
@@ -75,7 +106,7 @@ def reviews():
           # and redirect to the main Sub index
       return render_template("new_review.html", reviews=reviews, form=form)
     # if the submission isn't valid, send the user back to the original view
-    return render_template('new_review.html', title="New Review", form=form)
+    # return render_template('new_review.html', title="New Review", form=form)
 
 #################################################################
 #################### End of Setting Up A Post ###################
@@ -84,19 +115,11 @@ def reviews():
 
 
 
-
-
-
-
-
-
-
-
-# @app.route('/barbers', methods=['GET', 'POST'])
-# def barbers():
-#   with open('barbers.json') as json_data:
-#     barbers = json.load(json_data)
-#     return render_template('barbers.html', barbers=barbers)
+@app.route('/barbers', methods=['GET', 'POST'])
+def barbers():
+  with open('barbers.json') as json_data:
+    barbers = json.load(json_data)
+    return render_template('barbers.html', barbers=barbers)
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():

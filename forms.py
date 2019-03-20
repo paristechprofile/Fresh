@@ -9,7 +9,6 @@ def username_exists(form, field):
   if User.select().where(User.username == field.data).exists():
     raise ValidationError('User with that username already exists.')
 
-
 def email_exists(form, field):
   if User.select().where(User.email == field.data).exists():
     raise ValidationError('User with that email already exists.')
@@ -55,3 +54,5 @@ class ReviewForm(Form):
   text = TextAreaField('Review')
   rating = TextField('Rating')
   submit = SubmitField('Create Review')
+  delete = SubmitField('Delete')
+  update = SubmitField('Edit')
