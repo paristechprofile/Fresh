@@ -47,8 +47,8 @@ class Barber(Model):
 
 class Review(Model):
   timestamp = DateTimeField(default=datetime.datetime.now)
-  barber = ForeignKeyField(Barber, backref='barber')
-  user = ForeignKeyField(User, backref='user')
+  barber = ForeignKeyField(Barber, backref='reviews')
+  user_id = ForeignKeyField(User, backref='reviews')
   text = TextField()
   rating = CharField()
 

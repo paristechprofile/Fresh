@@ -109,17 +109,30 @@ def post():
     return render_template('posts.html', form=form)
 
 @app.route('/barbers')
-@app.route('/barbers/<id>', methods=['GET'])
+@app.route('/barbers/<id>', methods=['GET', 'POST'])
 def barbers(id=None):
   if id == None:
     barbers = models.Barber.select().limit(100)
     return render_template('barbers.html', barbers=barbers)
   else:
+    barber_param = int(id)
+    barber = models.Barber.get(models.Barber.id == barber_param)
+    reviews = barber.reviews
     form = ReviewForm()
-    barber_id = int(id)
-    barber = models.Barber.get(models.Barber.id == barber_id)
-    return render_template("barber.html", barber=barber, form=form)
-  
+    if form.validate_on_submit():
+      models.Review.create(
+        barber=barber_param, 
+        user_id=g.user._get_current_object(),
+        text=form.text.data.strip(), 
+        rating=form.rating.data.strip()
+        )
+    return render_template("barber.html", barber=barber, reviews=reviews,form=form)
+
+    # 
+    #   reviews = models.Review.select().limit(100)
+    #   flash("new review created")
+    #   return render_template("barber.html", review=reviews, form=form)
+
   """ this is to render json seed data """
   # with open('barbers.json') as json_data:
   #   barbers = json.load(json_data)

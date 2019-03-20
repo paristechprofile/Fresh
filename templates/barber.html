@@ -17,20 +17,17 @@
     <form  method="POST" action="" novalidate>
         <!-- this is a tag that is hidden to the user -->
         {{ form.hidden_tag() }} 
-
+<!-- 
         <div class="field">
-            <!-- outputting a label -->
+            
         {{ form.barber.label(class_="label") }}
-        <!-- outputting a barber -->
         {{ form.barber(class_="input") }}
         </div>
 
         <div class="field">
-        <!-- outputting a label -->
         {{ form.user.label(class_="label") }}
-        <!-- outputting a barber -->
         {{ form.user(class_="input") }}
-        </div>
+        </div> -->
 
 
         <div class="field">
@@ -54,15 +51,13 @@
 <div class='column2' >
     <div>
         <h1>reviews</h1>
-
-
-        
         {% for review in reviews %}
         <article class="message is-primary">
             <div class="message-header">
-            <p>{{review.text}}</p>
-            <p>{{review.rating}}</p>
-            <a href={{url_for('reviews', user=review.user_id)}}>{{review.title}}</a>
+            <p>by:{{review.user_id.username}}</p>
+            <p>Review:{{review.text}}</p>
+            <p>Rating:{{review.rating}}</p>
+            
             </div>
         </article>
         {% endfor %}
