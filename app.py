@@ -73,10 +73,22 @@ def register():
   return render_template('register.html', form=form)
 
 @app.route('/barbers')
-def barbers():
+@app.route('/barbers/<id>', methods=['GET'])
+def barbers(id=None):
+  # if id == None:
+  #   barbers = models.Barber.select().limit(100)
+  #   return render_template('barbers.html', barbers=barbers)
+  # else:
+  #   barber_id = int(id)
+  #   barber = models.Barber.get(models.Barber.id == barber_id)
+  #   return render_template("barber.html", barber=barber)
   with open('barbers.json') as json_data:
     barbers = json.load(json_data)
-    return render_template('barbers.html', barbers=barbers)
+    if id == None:
+      return render_template('barbers.html', barbers=barbers)
+    else:
+      barber_id = int(id)
+      return render_template('barber.html', barber=barbers[barber_id])
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():

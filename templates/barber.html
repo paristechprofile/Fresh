@@ -1,0 +1,15 @@
+{% extends "layout.html" %} 
+
+{% block content %}
+
+<h1>Barber</h1>
+<article class="message is-dark">
+    <div class="message-header">
+        <a>{{barber.name}}</a>
+    </div>
+    <div class="message-body">
+        {{barber.neighborhood}}
+    </div>
+</article>
+
+{% endblock %}
