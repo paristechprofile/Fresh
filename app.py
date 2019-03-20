@@ -4,8 +4,8 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_bcrypt import check_password_hash
 import json
 import models
-import forms
 
+from forms import ReviewForm
 # from forms import ReviewForm 
 # create the above form
 
@@ -42,24 +42,61 @@ def after_request(res):
 def index():
   return render_template('hello.html')
 
-@app.route('/register', methods=('GET', 'POST'))
-def register():
-  form = forms.RegisterForm()
-  if form.validate_on_submit():
-    flash('You in bruh. Damn straight!', 'success')
-    models.User.create_user(
-      username=form.username.data,
-      email=form.email.data,
-      password=form.password.data
-      )
-    return redirect(url_for('index'))
-  return render_template('register.html', form=form)
 
-@app.route('/barbers')
-def barbers():
-  with open('barbers.json') as json_data:
-    barbers = json.load(json_data)
-    return render_template('barbers.html', barbers=barbers)
+
+# @app.route('/reviews', methods=['GET', 'POST'])
+# def review():
+#     # the form variable we send down to the template needs to be added here
+#   form = ReviewForm()
+#   return render_template("new_review.html", title="New Review", form=form)
+
+
+##########################################################
+#################### Setting Up A Post ###################
+##########################################################
+@app.route('/reviews', methods=['GET', 'POST'])
+def reviews():
+  form = ReviewForm()
+  if request.method == 'GET':
+    reviews = models.Review.select().limit(100)
+    return render_template("new_review.html", reviews=reviews, form=form)
+  else:
+      # checks if the form submission is valid
+    if form.validate_on_submit():
+          # if it is, we create a new Sub
+      models.Review.create(
+        barber=form.barber.data.strip(), 
+        user=form.user.data.strip(), 
+        text=form.text.data.strip(), 
+        rating=form.rating.data.strip()
+        )
+      reviews = models.Review.select().limit(100)
+      flash("New review registered. Called: {}".format(form.barber.data))
+          # and redirect to the main Sub index
+      return render_template("new_review.html", reviews=reviews, form=form)
+    # if the submission isn't valid, send the user back to the original view
+    return render_template('new_review.html', title="New Review", form=form)
+
+#################################################################
+#################### End of Setting Up A Post ###################
+#################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+# @app.route('/barbers', methods=['GET', 'POST'])
+# def barbers():
+#   with open('barbers.json') as json_data:
+#     barbers = json.load(json_data)
+#     return render_template('barbers.html', barbers=barbers)
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
