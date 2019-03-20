@@ -129,11 +129,6 @@ def barbers(id=None):
         )
     return render_template("barber.html", barber=barber, reviews=reviews,form=form)
 
-    # 
-    #   reviews = models.Review.select().limit(100)
-    #   flash("new review created")
-    #   return render_template("barber.html", review=reviews, form=form)
-
   """ this is to render json seed data """
   # with open('barbers.json') as json_data:
   #   barbers = json.load(json_data)
@@ -142,8 +137,6 @@ def barbers(id=None):
   #   else:
   #     barber_id = int(id)
   #     return render_template('barber.html', barber=barbers[barber_id])
-
-
 
 if __name__ == '__main__':
   models.initialize()
