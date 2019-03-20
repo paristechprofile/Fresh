@@ -1,12 +1,17 @@
-{% extends "home.html" %} {% block content %}
+{% extends "layout.html" %} 
+
+{% block content %}
 <h1>Barbers</h1>
 {% for barber in barbers %}
 <article class="a">
   <div class="b">
-    <a>{{barber.name}}</a>
+    <a href={{url_for('barbers', id=barber.id)}}>{{barber.name}}</a>
   </div>
   <div class="message-body">
     {{barber.neighborhood}}
   </div>
 </article>
-{% endfor %} {% endblock %}
+{% endfor %} 
+
+{% endblock %}
+

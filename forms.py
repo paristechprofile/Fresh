@@ -55,3 +55,6 @@ class ReviewForm(Form):
   text = TextAreaField('Review')
   rating = TextField('Rating')
   submit = SubmitField('Create Review')
+
+class PostForm(Form):
+  content = TextAreaField("Enter Post here", validators=[DataRequired()])

@@ -1,0 +1,68 @@
+{% extends "layout.html" %} 
+
+{% block content %}
+
+<h1>Barber</h1>
+<article class="message is-dark">
+    <div class="message-header">
+        <a>{{barber.name}}</a>
+    </div>
+    <div class="message-body">
+        {{barber.neighborhood}}
+    </div>
+</article>
+<section class='column'>
+
+<div class='column1' >
+    <form  method="POST" action="" novalidate>
+        <!-- this is a tag that is hidden to the user -->
+        {{ form.hidden_tag() }} 
+<!-- 
+        <div class="field">
+            
+        {{ form.barber.label(class_="label") }}
+        {{ form.barber(class_="input") }}
+        </div>
+
+        <div class="field">
+        {{ form.user.label(class_="label") }}
+        {{ form.user(class_="input") }}
+        </div> -->
+
+
+        <div class="field">
+        <!-- outputting a label -->
+        {{ form.text.label(class_="label") }}
+        <!-- outputting a barber -->
+        {{ form.text(class_="input") }}
+        </div>
+
+        <div class="field">
+        <!-- outputting a label -->
+        {{ form.rating.label(class_="label") }}
+        <!-- outputting a barber -->
+        {{ form.rating(class_="input") }}
+        </div>
+
+        {{ form.submit(class_="button") }}
+    </form>
+</div>
+
+<div class='column2' >
+    <div>
+        <h1>reviews</h1>
+        {% for review in reviews %}
+        <article class="message is-primary">
+            <div class="message-header">
+            <p>by:{{review.user_id.username}}</p>
+            <p>Review:{{review.text}}</p>
+            <p>Rating:{{review.rating}}</p>
+            
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div> 
+</section>
+
+{% endblock %}
