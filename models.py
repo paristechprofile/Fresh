@@ -35,7 +35,7 @@ class User(UserMixin, Model):
       )
     except IntegrityError:
       raise ValueError("User already exists")
-    
+
 class Barber(Model):
   name = CharField()
   neighborhood = CharField()

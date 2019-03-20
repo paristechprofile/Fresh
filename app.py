@@ -5,6 +5,7 @@ from flask_bcrypt import check_password_hash
 import json
 import models
 import forms
+from forms import ReviewForm
 # from forms import ReviewForm 
 # create the above form
 
@@ -72,24 +73,6 @@ def register():
     return redirect(url_for('index'))
   return render_template('register.html', form=form)
 
-@app.route('/barbers')
-@app.route('/barbers/<id>', methods=['GET'])
-def barbers(id=None):
-  # if id == None:
-  #   barbers = models.Barber.select().limit(100)
-  #   return render_template('barbers.html', barbers=barbers)
-  # else:
-  #   barber_id = int(id)
-  #   barber = models.Barber.get(models.Barber.id == barber_id)
-  #   return render_template("barber.html", barber=barber)
-  with open('barbers.json') as json_data:
-    barbers = json.load(json_data)
-    if id == None:
-      return render_template('barbers.html', barbers=barbers)
-    else:
-      barber_id = int(id)
-      return render_template('barber.html', barber=barbers[barber_id])
-
 @app.route('/login', methods=('GET', 'POST'))
 def login():
   form = forms.LoginForm()
@@ -124,6 +107,29 @@ def post():
         flash("Message posted! Thanks!", "success")
         return redirect(url_for('index'))
     return render_template('posts.html', form=form)
+
+@app.route('/barbers')
+@app.route('/barbers/<id>', methods=['GET'])
+def barbers(id=None):
+  if id == None:
+    barbers = models.Barber.select().limit(100)
+    return render_template('barbers.html', barbers=barbers)
+  else:
+    form = ReviewForm()
+    barber_id = int(id)
+    barber = models.Barber.get(models.Barber.id == barber_id)
+    return render_template("barber.html", barber=barber, form=form)
+  
+  """ this is to render json seed data """
+  # with open('barbers.json') as json_data:
+  #   barbers = json.load(json_data)
+  #   if id == None:
+  #     return render_template('barbers.html', barbers=barbers)
+  #   else:
+  #     barber_id = int(id)
+  #     return render_template('barber.html', barber=barbers[barber_id])
+
+
 
 if __name__ == '__main__':
   models.initialize()
