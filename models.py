@@ -37,6 +37,14 @@ class Barber(Model):
   class Meta:
     database = DATABASE
 
+
+
+
+#############################################################
+#################### Review Model Methods ###################
+#############################################################
+
+
 class Review(Model):
   timestamp = DateTimeField(default=datetime.datetime.now)
   barber = ForeignKeyField(Barber, backref='barber')
