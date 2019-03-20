@@ -60,6 +60,7 @@ def stream(username=None):
     template = 'user_profile.html'
   return render_template(template, stream=stream, user=user)
 
+
 @app.route('/register', methods=('GET', 'POST'))
 def register():
   form = forms.RegisterForm()
