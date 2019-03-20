@@ -20,6 +20,14 @@ class Barber(Model):
   class Meta:
     database = DATABASE
 
+
+
+
+#############################################################
+#################### Review Model Methods ###################
+#############################################################
+
+
 class Review(Model):
   timestamp = DateTimeField(default=datetime.datetime.now)
   barber = ForeignKeyField(Barber, backref='barber')
@@ -33,7 +41,7 @@ class Review(Model):
 
 def initialize():
   DATABASE.connect()
-  DATABASE.create_tables([Review], safe=True)
+  DATABASE.create_tables([Review, Barber], safe=True)
   DATABASE.close()
 
 

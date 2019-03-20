@@ -7,8 +7,8 @@ from models import Review
 
 # create the class and variables to house Field definitions
 class ReviewForm(Form):
-  barber = TextField('By:')
-  user = TextField('Title')
+  barber = TextField('Barber:')
+  user = TextField('User:')
   text = TextAreaField('Review')
   rating = TextField('Rating')
   submit = SubmitField('Create Review')
