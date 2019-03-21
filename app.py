@@ -127,7 +127,23 @@ def barbers(id=None):
         text=form.text.data.strip(), 
         rating=form.rating.data.strip()
         )
+    
     return render_template("barber.html", barber=barber, reviews=reviews,form=form)
+
+@app.route('/barbers/<barberid>/reviews/<id>')
+def delete_review(barberid, id):
+  review_param = int(id)
+  barber_param = int(barberid)
+  review = models.Review.get(models.Review.id == review_param)
+  review.delete_instance()
+  form = ReviewForm()
+  barber = models.Barber.get(models.Barber.id == barber_param)
+  print(review)
+  reviews = barber.reviews
+  return redirect(url_for('barbers', ))
+  # return render_template("barber.html", barber=barber, reviews=reviews,form=form)
+
+
 
   """ this is to render json seed data """
   # with open('barbers.json') as json_data:
