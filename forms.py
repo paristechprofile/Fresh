@@ -55,4 +55,5 @@ class ReviewForm(Form):
   rating = TextField('Rating')
   submit = SubmitField('Create Review')
   delete = SubmitField('Delete')
-  update = SubmitField('Edit')
+  edit = SubmitField('Edit')
+  submit_edit = SubmitField('Submit Edit')

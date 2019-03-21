@@ -51,19 +51,15 @@ def review():
   return render_template("new_review.html", title="New Review", form=form)
 
 
+
 # ##########################################################
-# #################### Setting Up A Post ###################
+# #################### Updating A Post ###################
 # ##########################################################
 
-@app.route('/review/<id>/', methods=['POST'])
+@app.route('/review/<id>/put', methods=['POST'])
 def delete_review(id=None):
   form = ReviewForm()
-  print(id)
-  print(id)
-  print(id)
-  print(id)
-  print(id)
-    
+ 
   review_id = int(id)
 
   review = models.Review.get(models.Review.id == review_id)
@@ -72,8 +68,101 @@ def delete_review(id=None):
   
   reviews = models.Review.select().limit(100)
 
+  
+  return render_template("new_review.html", reviews=reviews, form=form) 
 
-  return render_template("new_review.html", reviews=reviews, form=form)
+
+# ##########################################################
+# #################### Updating A Post ###################
+# ##########################################################
+
+
+
+
+
+
+
+
+
+
+
+
+# ##########################################################
+# #################### Going into edit Mode ###################
+# ##########################################################
+
+@app.route('/review/<id>/edit_mode', methods=['POST'])
+def edit_mode(id=None):
+  form = ReviewForm()
+
+  reviews = models.Review.select().limit(100)
+  
+  return render_template("edit_template.html", reviews=reviews, form=form)
+
+
+# ##########################################################
+# #################### Going into Edit Mode ###################
+# ##########################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ##########################################################
+# #################### Deleting A Post ###################
+# ##########################################################
+
+@app.route('/review/<id>/delete', methods=['POST'])
+def update_review(id=None):
+  form = ReviewForm()
+    
+  review_id = int(id)
+
+  review = models.Review.get(models.Review.id == review_id)
+
+  review.delete_instance()
+  
+  reviews = models.Review.select().limit(100)
+  
+
+  # return 'hello'
+
+  return render_template("new_review.html", reviews=reviews, form=form) 
+
+
+# ##########################################################
+# #################### Deleting A Post ###################
+# ##########################################################
+
+
+
+
+
+# ##########################################################
+# #################### Setting Up A Post ###################
+# ##########################################################
 
 @app.route('/reviews/', methods=['GET', 'POST'])
 @app.route('/reviews/', methods=['GET'])
