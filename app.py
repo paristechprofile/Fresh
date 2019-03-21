@@ -148,13 +148,10 @@ def edit_review(barberid, id):
   form = EditForm()
   barber = models.Barber.get(models.Barber.id == barber_param)
   if form.validate_on_submit():
-    review.text = form.text.data, 
-    review.rating = form.rating.data
-    print(review.text)
-    print(form.text.data)
-    review.save()
+    query = review.update(text=form.text.data, rating=form.rating.data)
+    query.execute()
   return render_template("edit_form.html", id=barber_param, review=review, form=form)
-  
+
 if __name__ == '__main__':
   models.initialize()
   try:

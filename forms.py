@@ -50,17 +50,17 @@ class LoginForm(Form):
 
 # create the class and variables to house Field definitions
 class ReviewForm(Form):
-  barber = TextField('Barber:')
-  user = TextField('User:')
+  barber = StringField('Barber:')
+  user = StringField('User:')
   text = TextAreaField('Review')
-  rating = TextField('Rating')
+  rating = StringField('Rating')
   submit = SubmitField('Create Review')
 
 class EditForm(Form):
-  barber = TextField('Barber:')
-  user = TextField('User:')
+  barber = StringField('Barber:')
+  user = StringField('User:')
   text = TextAreaField('Review', validators=[DataRequired()])
-  rating = TextField('Rating', validators=[
+  rating = StringField('Rating', validators=[
     DataRequired(),
     Regexp(
       r'^[0-5_]+$',
