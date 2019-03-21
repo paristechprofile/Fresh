@@ -134,12 +134,14 @@ def barbers(id=None):
 def delete_review(barberid, id):
   review_param = int(id)
   barber_param = int(barberid)
-  review = models.Review.get(models.Review.id == review_param)
-  review.delete_instance()
-  form = ReviewForm()
-  barber = models.Barber.get(models.Barber.id == barber_param)
-  print(review)
-  reviews = barber.reviews
+  
+  review = models.Review.get_or_none(review_param)
+  if str(review.user_id) == str(current_user.id):
+    review.delete_instance()
+    form = ReviewForm()
+    barber = models.Barber.get(models.Barber.id == barber_param)
+    reviews = barber.reviews
+    return redirect(url_for('barbers', id=barber_param))
   return redirect(url_for('barbers', id=barber_param))
 
 if __name__ == '__main__':
