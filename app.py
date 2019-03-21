@@ -140,7 +140,7 @@ def delete_review(barberid, id):
   barber = models.Barber.get(models.Barber.id == barber_param)
   print(review)
   reviews = barber.reviews
-  return redirect(url_for('barbers'))
+  return redirect(url_for('barbers', id=barber_param))
 
 if __name__ == '__main__':
   models.initialize()
