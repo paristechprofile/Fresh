@@ -6,8 +6,8 @@ import json
 import models
 import forms
 from forms import ReviewForm
-# from forms import ReviewForm 
-# create the above form
+from forms import EditForm
+from flask_bootstrap import Bootstrap
 
 DEBUG = True
 PORT = 8000
@@ -101,13 +101,12 @@ def logout():
 @app.route('/new_post', methods=('GET', 'POST'))
 @login_required
 def post():
-    form = forms.PostForm()
-    if form.validate_on_submit():
-        models.Post.create(user=g.user._get_current_object(),
-                            content=form.content.data.strip())
-        flash("Message posted! Thanks!", "success")
-        return redirect(url_for('index'))
-    return render_template('posts.html', form=form)
+  form = forms.PostForm()
+  if form.validate_on_submit():
+    models.Post.create(user=g.user._get_current_object(), content=form.content.data.strip())
+    flash("Message posted! Thanks!", "success")
+    return redirect(url_for('index'))
+  return render_template('posts.html', form=form)
 
 @app.route('/barbers')
 @app.route('/barbers/<id>', methods=['GET', 'POST'])
@@ -127,10 +126,10 @@ def barbers(id=None):
         text=form.text.data.strip(), 
         rating=form.rating.data.strip()
         )
-    
+      flash("You created a review")
     return render_template("barber.html", barber=barber, reviews=reviews,form=form)
 
-@app.route('/barbers/<barberid>/reviews/<id>')
+@app.route('/barbers/<barberid>/reviews/<id>/delete')
 def delete_review(barberid, id):
   review_param = int(id)
   barber_param = int(barberid)
@@ -138,10 +137,24 @@ def delete_review(barberid, id):
   review.delete_instance()
   form = ReviewForm()
   barber = models.Barber.get(models.Barber.id == barber_param)
-  print(review)
   reviews = barber.reviews
   return redirect(url_for('barbers', id=barber_param))
 
+@app.route('/barbers/<barberid>/reviews/<id>/edit', methods=('GET', 'POST'))
+def edit_review(barberid, id):
+  barber_param = int(barberid)
+  review_param = int(id)
+  review = models.Review.get(models.Review.id == review_param)
+  form = EditForm()
+  barber = models.Barber.get(models.Barber.id == barber_param)
+  if form.validate_on_submit():
+    review.text = form.text.data, 
+    review.rating = form.rating.data
+    print(review.text)
+    print(form.text.data)
+    review.save()
+  return render_template("edit_form.html", id=barber_param, review=review, form=form)
+  
 if __name__ == '__main__':
   models.initialize()
   try:

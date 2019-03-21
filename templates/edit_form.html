@@ -1,0 +1,32 @@
+<!-- set up edit form as a template that extends the barber profile page -->
+<!-- handle the actual edit functionality -->
+<!-- add bootstrap to turn it into a modal -->
+<!-- use javascript that turns the button into a modal trigger -->
+{% extends "layout.html" %} 
+
+{% block content %}
+<title>Edit Review - Fresh Database</title>
+<h2>Edit Review</h2>
+<div class='column1' >
+    <form  method="POST" action="" novalidate>
+      {{ form.hidden_tag() }} 
+      <div class="field">
+      {{ form.text.label(class_="label")}}
+      {{ form.text(class_="input", placeholder=review.text, id="reviewText")}}
+      
+      </div>
+      <div class="field">
+      {{ form.rating.label(class_="label") }}
+      {{ form.rating(class_="input", placeholder=review.rating, id="reviewRating")}}
+      </div>
+      {{ form.submit(class_="button") }}
+    </form>
+  </div>
+
+{% endblock %}
+
+
+
+
+
+

@@ -56,5 +56,18 @@ class ReviewForm(Form):
   rating = TextField('Rating')
   submit = SubmitField('Create Review')
 
+class EditForm(Form):
+  barber = TextField('Barber:')
+  user = TextField('User:')
+  text = TextAreaField('Review', validators=[DataRequired()])
+  rating = TextField('Rating', validators=[
+    DataRequired(),
+    Regexp(
+      r'^[0-5_]+$',
+      message=("Rating should be 0-5 only")
+    )
+  ])
+  submit = SubmitField('Save')
+
 class PostForm(Form):
   content = TextAreaField("Enter Post here", validators=[DataRequired()])

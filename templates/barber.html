@@ -5,32 +5,25 @@
 <h1>Barber</h1>
 <article class="message is-dark">
     <div class="message-header">
-        <a>{{barber.name}}</a>
+        <h3><a>{{barber.name}}</a></h3>
     </div>
     <div class="message-body">
-        {{barber.neighborhood}}
+        <h6>{{barber.neighborhood}}</h6>
     </div>
 </article>
 <section class='column'>
 
 <div class='column1' >
     <form  method="POST" action="" novalidate>
-        <!-- this is a tag that is hidden to the user -->
         {{ form.hidden_tag() }} 
         <div class="field">
-        <!-- outputting a label -->
         {{ form.text.label(class_="label") }}
-        <!-- outputting a barber -->
         {{ form.text(class_="input") }}
         </div>
-
         <div class="field">
-        <!-- outputting a label -->
         {{ form.rating.label(class_="label") }}
-        <!-- outputting a barber -->
         {{ form.rating(class_="input") }}
         </div>
-
         {{ form.submit(class_="button") }}
     </form>
 </div>
@@ -45,6 +38,7 @@
             <p>Review:{{review.text}}</p>
             <p>Rating:{{review.rating}}</p>
             <a href={{url_for('delete_review', barberid=barber.id, id=review.id)}}>delete</a>
+            <a href={{url_for('edit_review', barberid=barber.id, id=review.id)}}>edit</a>
             </div>
         </article>
         {% endfor %}
