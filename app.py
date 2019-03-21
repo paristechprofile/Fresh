@@ -140,19 +140,7 @@ def delete_review(barberid, id):
   barber = models.Barber.get(models.Barber.id == barber_param)
   print(review)
   reviews = barber.reviews
-  return redirect(url_for('barbers', ))
-  # return render_template("barber.html", barber=barber, reviews=reviews,form=form)
-
-
-
-  """ this is to render json seed data """
-  # with open('barbers.json') as json_data:
-  #   barbers = json.load(json_data)
-  #   if id == None:
-  #     return render_template('barbers.html', barbers=barbers)
-  #   else:
-  #     barber_id = int(id)
-  #     return render_template('barber.html', barber=barbers[barber_id])
+  return redirect(url_for('barbers'))
 
 if __name__ == '__main__':
   models.initialize()
