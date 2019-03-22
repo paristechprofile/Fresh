@@ -1,7 +1,6 @@
 {% extends "layout.html" %} 
 
 {% block content %}
-
 <h1>Barber</h1>
 <article class="message is-dark">
     <div class="message-header">
@@ -9,6 +8,9 @@
     </div>
     <div class="message-body">
         <h6>{{barber.neighborhood}}</h6>
+    </div>
+    <div>
+        <img src="{{barber.profile_pic}}" class="card-img-top" alt="..."/>
     </div>
 </article>
 <section class='column'>
