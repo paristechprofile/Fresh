@@ -53,7 +53,7 @@ def review():
 
 
 # ##########################################################
-# #################### Updating A Post ###################
+# #################### Delete A Post ###################
 # ##########################################################
 
 @app.route('/review/<id>/put', methods=['POST'])
@@ -73,7 +73,7 @@ def delete_review(id=None):
 
 
 # ##########################################################
-# #################### Updating A Post ###################
+# #################### Delete A Post ###################
 # ##########################################################
 
 
@@ -131,29 +131,32 @@ def edit_mode(id=None):
 
 
 # ##########################################################
-# #################### Deleting A Post ###################
+# #################### Updating A Post ###################
 # ##########################################################
 
-@app.route('/review/<id>/delete', methods=['POST'])
+@app.route('/review/<id>/update', methods=['POST'])
 def update_review(id=None):
   form = ReviewForm()
-    
+  Review = models.Review
+
   review_id = int(id)
-
-  review = models.Review.get(models.Review.id == review_id)
-
-  review.delete_instance()
   
-  reviews = models.Review.select().limit(100)
-  
+  print(form.text, 'gfgfgfgfgfgfgfgf')
+  print(form.text, 'gfgfgfgfgfgfgfgf')
+  print(form.text, 'gfgfgfgfgfgfgfgf')
+  print(form.text, 'gfgfgfgfgfgfgfgf')
 
-  # return 'hello'
+  query = Review.update(text='chike').where(Review.id == review_id)
+
+  query.execute()
+
+  reviews = Review.select().limit(100)
 
   return render_template("new_review.html", reviews=reviews, form=form) 
 
 
 # ##########################################################
-# #################### Deleting A Post ###################
+# #################### Updating A Post ###################
 # ##########################################################
 
 

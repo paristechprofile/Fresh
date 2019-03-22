@@ -47,7 +47,7 @@
             <div class="message-header">
                                 
                 <form>
-                   {{form.edit(class_="input", type="input", value = review.rating)}}
+                   {{form.edit(class_="input", type="input=", value = review.rating)}}
                 </form>
                 
                 
@@ -62,7 +62,7 @@
                 </form>
                     
 
-                <form method="POST" action={{ url_for('update_review', id=review.id) }}>
+                <form method="POST" action={{ url_for('update_review', id=review.id }}>
                     {{ form.submit_edit(class_="button") }}
                 </form>
 
