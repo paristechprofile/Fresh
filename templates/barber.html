@@ -20,7 +20,10 @@
         {{ form.hidden_tag() }} 
         <div class="field">
         {{ form.text.label(class_="label") }}
-        {{ form.text(class_="input") }}
+        <div class="input-group">
+            <div class="input-group-prepend">
+                {{ form.text(class_="input input-group-text") }}
+            </div>
         </div>
         <div class="field">
         {{ form.rating.label(class_="label") }}
