@@ -1,17 +1,19 @@
-from flask import Flask, g, request
-from flask import render_template, flash, redirect, url_for
+from flask import Flask, g
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
 import json
 import models
-<<<<<<< HEAD
-
-=======
 import forms
->>>>>>> 3af8c0b7b85c2d2cc30ed515b1b7c1ff0fd5942b
 from forms import ReviewForm
 from forms import EditForm
 from flask_bootstrap import Bootstrap
+import stripe
+
+pub_key = "pk_test_bm5f43zWX8BTqX267h5pKZWq00j0a49ep8"
+secret_key = "sk_test_in1qq2eEDnfmwYLXUHjRxSyG00jo5kNZDx"
+
+stripe.api_key = secret_key
 
 DEBUG = True
 PORT = 8000
@@ -45,180 +47,6 @@ def after_request(res):
 
 @app.route('/')
 def index():
-<<<<<<< HEAD
-  return render_template('hello.html')
-
-
-
-@app.route('/reviews', methods=['GET', 'POST'])
-def review():
-    # the form variable we send down to the template needs to be added here
-  form = ReviewForm()
-  return render_template("new_review.html", title="New Review", form=form)
-
-
-
-# ##########################################################
-# #################### Delete A Post ###################
-# ##########################################################
-
-@app.route('/review/<id>/put', methods=['POST'])
-def delete_review(id=None):
-  form = ReviewForm()
- 
-  review_id = int(id)
-
-  review = models.Review.get(models.Review.id == review_id)
-
-  review.delete_instance()
-  
-  reviews = models.Review.select().limit(100)
-
-  
-  return render_template("new_review.html", reviews=reviews, form=form) 
-
-
-# ##########################################################
-# #################### Delete A Post ###################
-# ##########################################################
-
-
-
-
-
-
-
-
-
-
-
-
-# ##########################################################
-# #################### Going into edit Mode ###################
-# ##########################################################
-
-@app.route('/review/<id>/edit_mode', methods=['POST'])
-def edit_mode(id=None):
-  form = ReviewForm()
-
-  reviews = models.Review.select().limit(100)
-  
-  return render_template("edit_template.html", reviews=reviews, form=form)
-
-
-# ##########################################################
-# #################### Going into Edit Mode ###################
-# ##########################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ##########################################################
-# #################### Updating A Post ###################
-# ##########################################################
-
-@app.route('/review/<id>/update', methods=['POST'])
-def update_review(id=None):
-  form = ReviewForm()
-  Review = models.Review
-
-  review_id = int(id)
-  
-  print(form.text, 'gfgfgfgfgfgfgfgf')
-  print(form.text, 'gfgfgfgfgfgfgfgf')
-  print(form.text, 'gfgfgfgfgfgfgfgf')
-  print(form.text, 'gfgfgfgfgfgfgfgf')
-
-  query = Review.update(text='chike').where(Review.id == review_id)
-
-  query.execute()
-
-  reviews = Review.select().limit(100)
-
-  return render_template("new_review.html", reviews=reviews, form=form) 
-
-
-# ##########################################################
-# #################### Updating A Post ###################
-# ##########################################################
-
-
-
-
-
-# ##########################################################
-# #################### Setting Up A Post ###################
-# ##########################################################
-
-@app.route('/reviews/', methods=['GET', 'POST'])
-@app.route('/reviews/', methods=['GET'])
-def reviews():
-  form = ReviewForm()
-  # if request.method == 'GET' and delete != None:
-  #   return redirect('new_review.html')
-  # if request.args.get('id') == 'chike':
-  #   print('hello , hello , hello')
-  #   return 'hello'
-
-  print(request.args.get('id'))
-
-  if request.method == 'GET':
-    reviews = models.Review.select().limit(100)
-    return render_template("new_review.html", reviews=reviews, form=form)
-
-  else:
-      # checks if the form submission is valid
-    if form.validate_on_submit():
-          # if it is, we create a new Sub
-      models.Review.create(
-        barber=form.barber.data.strip(), 
-        user=form.user.data.strip(), 
-        text=form.text.data.strip(), 
-        rating=form.rating.data.strip()
-        )
-      reviews = models.Review.select().limit(100)
-      flash("New review registered. Called: {}".format(form.barber.data))
-          # and redirect to the main Sub index
-      return render_template("new_review.html", reviews=reviews, form=form)
-    # if the submission isn't valid, send the user back to the original view
-    # return render_template('new_review.html', title="New Review", form=form)
-
-#################################################################
-#################### End of Setting Up A Post ###################
-#################################################################
-
-
-
-
-@app.route('/barbers', methods=['GET', 'POST'])
-def barbers():
-  with open('barbers.json') as json_data:
-    barbers = json.load(json_data)
-    return render_template('barbers.html', barbers=barbers)
-=======
   stream = models.Post.select().limit(100)
   return render_template('home.html', stream=stream)
 
@@ -251,7 +79,6 @@ def register():
       )
     return redirect(url_for('index'))
   return render_template('register.html', form=form)
->>>>>>> 3af8c0b7b85c2d2cc30ed515b1b7c1ff0fd5942b
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
@@ -306,7 +133,7 @@ def barbers(id=None):
         rating=form.rating.data.strip()
         )
       flash("You created a review")
-    return render_template("barber.html", barber=barber, reviews=reviews,form=form)
+    return render_template("barber.html", barber=barber, reviews=reviews,form=form, pub_key=pub_key)
 
 @app.route('/barbers/<barberid>/reviews/<id>/delete')
 def delete_review(barberid, id):
@@ -340,6 +167,23 @@ def edit_review(barberid, id):
   else: 
     flash('make sure to fill out both fields and that your review is 0-5')
     return render_template("edit_form.html", id=barber_param, review=review, form=form)
+
+
+@app.route('/pay', methods = ['POST'])
+def pay():
+  print(request.form)
+  customer = stripe.Customer.create(email = request.form['stripeEmail'], source = request.form['stripeToken'])
+
+  charge = stripe.Charge.create(
+    customer = customer.id,
+    amount = 999,
+    currency = 'usd',
+    description = 'A Haircut'
+  )
+
+  # return redirect('thanks')
+
+  return 'You paid 9.99 for your haircut. Thanks!'
 
 
 if __name__ == '__main__':
