@@ -117,9 +117,10 @@ def post():
 @app.route('/barbers')
 @app.route('/barbers/<id>', methods=['GET', 'POST'])
 def barbers(id=None):
+  form = forms.SelectNeighborhoodForm()
   if id == None:
     barbers = models.Barber.select().limit(100)
-    return render_template('barbers.html', barbers=barbers)
+    return render_template('barbers.html', barbers=barbers, form=form)
   else:
     barber_param = int(id)
     barber = models.Barber.get(models.Barber.id == barber_param)
@@ -180,10 +181,9 @@ def pay():
     currency = 'usd',
     description = 'A Haircut'
   )
-
-  # return redirect('thanks')
-
   return 'You paid 9.99 for your haircut. Thanks!'
+
+
 
 
 if __name__ == '__main__':
