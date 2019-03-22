@@ -8,6 +8,11 @@ import forms
 from forms import ReviewForm
 from forms import EditForm
 from flask_bootstrap import Bootstrap
+import os
+
+if 'ON_HEROKU' in os.environ:
+  print('hitting ')
+  models.initialize()
 
 DEBUG = True
 PORT = 8000
@@ -19,6 +24,12 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+@app.before_request
+def before_request():
+  
+  g.db.connect()
+
+
 @login_manager.user_loader
 def load_user(userid):
   try:
@@ -29,7 +40,8 @@ def load_user(userid):
 @app.before_request
 def before_request():
   """Connect to the database before each request."""
-  g.db = models.DATABASE
+  g.db = db_proxy #https://swifthorseman.com/2015/06/18/deploying-a-flask-app-with-peewee-to-heroku/
+  # g.db = models.DATABASE #peewee
   g.db.connect()
   g.user = current_user
 
@@ -161,7 +173,6 @@ def edit_review(barberid, id):
   else: 
     flash('make sure to fill out both fields and that your review is 0-5')
     return render_template("edit_form.html", id=barber_param, review=review, form=form)
-
 
 if __name__ == '__main__':
   models.initialize()

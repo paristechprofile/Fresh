@@ -1,10 +1,23 @@
 import datetime
+import os
 from peewee import *
-
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
+from playhouse.db_url import connect
+import psycopg2
+from flask import g
 
-DATABASE = SqliteDatabase('fresh.db')
+import os
+
+from playhouse.db_url import connect
+
+DATABASE = connect(os.environ.get('DATABASE_URL'))
+
+# DATABASE_URL = os.environ['DATABASE_URL'] #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
+# conn = psycopg2.connect(DATABASE_URL, sslmode='require') #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
+
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
+# DATABASE = SqliteDatabase('fresh.db') #sqlite database
 
 class User(UserMixin, Model):
   username = CharField(unique=True)
