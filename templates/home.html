@@ -11,6 +11,8 @@
   </div>
   <div class="row">
     <div class="col">
+      <div>
+    </div>
       <h1>{% if current_user.is_authenticated %} Hello {{current_user.username}} {%endif%}</h1>
       <a href="{{ url_for('index') }}">Word On The Street</a>
     </div>

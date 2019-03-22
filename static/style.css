@@ -1,0 +1,9 @@
+
+/* Home */
+.jumbotron{
+  background-image: url("./images/straight-shave.jpg");
+  background-size: 100%;
+  background-position: center; 
+  opacity: .9;
+  height: 35em;
+}
