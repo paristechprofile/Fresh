@@ -1,0 +1,7 @@
+.col{
+  display: flex;
+  justify-content: center;
+}
+.jumbotron{
+  background-image: url("./static/images/straigh-shave.jpg");
+}

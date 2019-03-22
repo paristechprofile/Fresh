@@ -42,7 +42,7 @@ def after_request(res):
 @app.route('/')
 def index():
   stream = models.Post.select().limit(100)
-  return render_template('stream.html', stream=stream)
+  return render_template('home.html', stream=stream)
 
 @app.route('/stream')
 @app.route('/stream/<username>')
@@ -160,8 +160,9 @@ def edit_review(barberid, id):
     return redirect(url_for('barbers', id=barber_param))
   else: 
     flash('make sure to fill out both fields and that your review is 0-5')
-    
     return render_template("edit_form.html", id=barber_param, review=review, form=form)
+
+
 if __name__ == '__main__':
   models.initialize()
   try:

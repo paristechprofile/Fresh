@@ -1,12 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Fresh</title>
-</head>
-<body>
-  
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+  <div class="row ">
+    <div class="col jumbotron">
+      <h1 class="display-4">Fresh Membership</h1>
+      <p class="lead">An edge over the competition starting at $99/month</p>
+      <hr class="my-4">
+      <p>Grab your monthly membership now</p>
+      <a class="btn btn-dark btn-lg" href="#" role="button">Learn more</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h1>{% if current_user.is_authenticated %} Hello {{current_user.username}} {%endif%}</h1>
+      <a href="{{ url_for('index') }}">Word On The Street</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class={{category}}>{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

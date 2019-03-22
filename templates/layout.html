@@ -8,41 +8,42 @@
 </head>
 <body>
 
-  <div class="container">
+  <div class="container-fluid">
+    <nav>
     <div class="row">
-      <div class="col">
-        <h1>{% if current_user.is_authenticated %} Hello {{current_user.username}} {%endif%}</h1>
+      <div class="col-12">
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link active" href="{{url_for('barbers')}}">Find A Barber</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+          <li class="nav-item">
+            {% if current_user.is_authenticated %}
+              <a class="nav-link" href="{{url_for('logout')}}" title="logout">Logout</a>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('login')}}" title="login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('register')}}" title="register">Register</a>
+            </li> 
+            {% endif %}
+          </li>
+        </ul>
       </div>
+    </nav>
+    <div row>
       <div class="col">
-        {% if current_user.is_authenticated %}
-          <a href="{{url_for('logout')}}" title="logout">Logout</a>
-        {% else %}
-          <a href="{{url_for('login')}}" title="login">Login</a>
-          <a href="{{url_for('register')}}" title="register">register</a>
-        {% endif %}
+      {% block content %}{% endblock %} 
       </div>
     </div>
-    <br>
-    <div class="row">
-      <div class="col">
-        <nav>
-          <a href="{{ url_for('index') }}">Index Page with all the posts</a>
-        </nav>
-
-      </div>
-      <div class="col">
-        {% with messages = get_flashed_messages(with_categories=True) %}
-          {% if messages %}
-            {% for category, message in messages %}
-              <div class={{category}}>{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-      </div>
-      <div class="col">
-        {% block content %}{% endblock %}
-      </div>
-    </div>
-  </div>
+    <footer>
+      
+    </footer>
 </body>
 </html>
