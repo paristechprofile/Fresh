@@ -10,10 +10,6 @@ from forms import EditForm
 from flask_bootstrap import Bootstrap
 import os
 
-if 'ON_HEROKU' in os.environ:
-  print('hitting ')
-  models.initialize()
-
 DEBUG = True
 PORT = 8000
 
@@ -173,6 +169,10 @@ def edit_review(barberid, id):
   else: 
     flash('make sure to fill out both fields and that your review is 0-5')
     return render_template("edit_form.html", id=barber_param, review=review, form=form)
+
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
 
 if __name__ == '__main__':
   models.initialize()

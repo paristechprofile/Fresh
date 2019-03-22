@@ -4,7 +4,6 @@ from peewee import *
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
 from playhouse.db_url import connect
-import psycopg2
 from flask import g
 
 import os
