@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 
 <head>
     <title></title>
@@ -68,4 +69,52 @@
     </script> -->
 </body>
 
+=======
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+  <div class="container-fluid">
+    <nav>
+    <div class="row">
+      <div class="col-12">
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link active" href="{{url_for('barbers')}}">Find A Barber</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+          <li class="nav-item">
+            {% if current_user.is_authenticated %}
+              <a class="nav-link" href="{{url_for('logout')}}" title="logout">Logout</a>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('login')}}" title="login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('register')}}" title="register">Register</a>
+            </li> 
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div row>
+      <div class="col">
+      {% block content %}{% endblock %} 
+      </div>
+    </div>
+    <footer>
+      
+    </footer>
+</body>
+>>>>>>> 3af8c0b7b85c2d2cc30ed515b1b7c1ff0fd5942b
 </html>

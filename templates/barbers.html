@@ -1,12 +1,45 @@
-{% extends "home.html" %} {% block content %}
-<h1>Barbers</h1>
+{% extends "layout.html" %} 
+
+{% block content %}
+<div class="row jumbotron">
+  <div class="col barbers">
+    <h1 class="display-4">Invest In You</h1>
+    <p class="lead">You're Not A Businessman. You're a Business, Man.</p>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <p>Find the best near you</p>
+  </div>
+</div>   
+
 {% for barber in barbers %}
-<article class="a">
-  <div class="b">
-    <a>{{barber.name}}</a>
+<div class="card mb-3">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><a href={{url_for('barbers', id=barber.id)}}>{{barber.name}}</a></h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text"><small class="text-muted">{{barber.neighborhood}}</small></p>
+    </div>
   </div>
-  <div class="message-body">
-    {{barber.neighborhood}}
+<!-- <div class="row">
+  <div class="col-8">
+    <div class="row">
+      <div class="col-12">
+        
+      </div>
+      <div class="col-12">
+        
+      </div>
+    </div>
   </div>
-</article>
-{% endfor %} {% endblock %}
+</div> -->
+
+{% endfor %} 
+
+{% endblock %}
+
