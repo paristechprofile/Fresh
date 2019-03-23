@@ -117,7 +117,16 @@ def post():
 @app.route('/barbers')
 @app.route('/barbers/<id>', methods=['GET', 'POST'])
 def barbers(id=None):
-  form = forms.SelectNeighborhoodForm()
+
+  print(request.args.get('neighborhood'), 'OOOOOOO')
+  print(request.args.get('neighborhood'), 'OOOOOOO')
+  print(request.args.get('neighborhood'), 'OOOOOOO')
+  print(request.args.get('neighborhood'), 'OOOOOOO')
+  print(request.args.get('neighborhood'), 'OOOOOOO')
+  print(request.args.get('neighborhood'), 'OOOOOOO')
+
+
+  form = forms.PostForm()
   if id == None:
     barbers = models.Barber.select().limit(100)
     return render_template('barbers.html', barbers=barbers, form=form)
@@ -182,8 +191,6 @@ def pay():
     description = 'A Haircut'
   )
   return 'You paid 9.99 for your haircut. Thanks!'
-
-
 
 
 if __name__ == '__main__':

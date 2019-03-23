@@ -7,11 +7,10 @@
     <p class="lead">You're Not A Businessman. You're a Business, Man.</p>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-             {{ form.search(class_="btn btn-outline-dark my-2 my-sm-0", value="Search")}}
-        <form>
-              {{form.neighborhood(class_="drop-down")}}
-        </form>
-
+      {{ form.search(class_="btn btn-outline-dark my-2 my-sm-0", value="Search")}}
+             <form>
+                {{form.neighborhood(class_="drop-down")}}
+            </form>
     </form>
     
   </div>
@@ -21,7 +20,7 @@
     <p>Find the best near you</p>
   </div>
 </div>   
-
+WITH A MAP WITH A MAP WITH A MAP WITH A MAP WITH A MAP WITH A MAP WITH A MAP WITH A MAP
 {% for barber in barbers %}
 <div class = "info">
 <div class="card mb-3">
@@ -50,4 +49,3 @@
 {% endfor %} 
 
 {% endblock %}
-

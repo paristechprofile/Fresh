@@ -71,8 +71,5 @@ class EditForm(Form):
 
 class PostForm(Form):
   content = TextAreaField("Enter Post here", validators=[DataRequired()])
-
-
-
-class SelectNeighborhoodForm(Form):
-  neighborhoods = SelectField(u'Choose Neighborhood', choices=[('soma', 'SOMA'), ('dogpatch', 'DOGPATCH'), ('mission', 'MISSION DISTRICT')])
+  neighborhood = SelectField(u'Choose Neighborhood', choices=[('soma', 'SOMA'), ('dogpatch', 'DOGPATCH'), ('mission district', 'MISSION DISTRICT')])
+  search = SubmitField('Search')
