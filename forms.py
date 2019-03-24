@@ -49,10 +49,24 @@ class LoginForm(Form):
 
 # create the class and variables to house Field definitions
 class ReviewForm(Form):
-  barber = TextField('Barber:')
-  user = TextField('User:')
+  barber = StringField('Barber:')
+  user = StringField('User:')
   text = TextAreaField('Review')
-  rating = TextField('Rating')
+  rating = StringField('Rating')
   submit = SubmitField('Create Review')
-  delete = SubmitField('Delete')
-  update = SubmitField('Edit')
+
+class EditForm(Form):
+  barber = StringField('Barber:')
+  user = StringField('User:')
+  text = TextAreaField('Review', validators=[DataRequired()])
+  rating = StringField('Rating', validators=[
+    DataRequired(),
+    Regexp(
+      r'^[0-5_]+$',
+      message=("Rating should be 0-5 only")
+    )
+  ])
+  submit = SubmitField('Save')
+
+class PostForm(Form):
+  content = TextAreaField("Enter Post here", validators=[DataRequired()])

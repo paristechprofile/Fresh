@@ -1,16 +1,19 @@
 [{
+  "id": "0",
   "name": "Cornelius",
   "neighborhood": "Dogpatch",
   "profile_pic": "URL.com",
   "portfolio_pic": "PICS.com"
   },
   {
+  "id": "1",
   "name": "Cedric",
   "neighborhood": "West Oakland",
   "profile_pic": "URL.com",
   "portfolio_pic": "PICS.com"
   },
   {
+  "id": "2",
   "name": "Chris Rock",
   "neighborhood": "Dogpatch",
   "profile_pic": "URL.com",

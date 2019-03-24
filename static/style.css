@@ -1,0 +1,29 @@
+
+/* Home Page */
+.jumbotron{
+  background-image: url("./images/straight-shave.jpg");
+  background-size: 100%;
+  background-position: bottom; 
+  opacity: .9;
+  width: auto;
+  height: 35em;
+  background-repeat: no-repeat;
+}
+/* Barbers Page */
+
+/* Barber Profile Page */
+.profilePic{
+  width: 60%;
+}
+
+@media only screen and (max-width: 870px){
+  .jumbotron{
+    background-image: url("./images/straight-shave.jpg");
+    background-size: 250%;
+    background-position: center; 
+    opacity: .9;
+    width: auto;
+    height: 35em;
+    background-repeat: no-repeat;
+  }
+}

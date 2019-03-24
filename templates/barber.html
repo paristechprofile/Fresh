@@ -1,0 +1,54 @@
+{% extends "layout.html" %} 
+
+{% block content %}
+<h1>Barber</h1>
+<article class="message is-dark">
+    <div class="message-header">
+        <h3><a>{{barber.name}}</a></h3>
+    </div>
+    <div class="message-body">
+        <h6>{{barber.neighborhood}}</h6>
+    </div>
+    <div>
+        <img src="{{barber.profile_pic}}" class="card-img-top profilePic" alt="..."/>
+    </div>
+</article>
+<section class='column'>
+
+<div class='column1' >
+    <form  method="POST" action="" novalidate>
+        {{ form.hidden_tag() }} 
+        <div class="field">
+        {{ form.text.label(class_="label") }}
+        <div class="input-group">
+            <div class="input-group-prepend">
+                {{ form.text(class_="input input-group-text") }}
+            </div>
+        </div>
+        <div class="field">
+        {{ form.rating.label(class_="label") }}
+        {{ form.rating(class_="input") }}
+        </div>
+        {{ form.submit(class_="button") }}
+    </form>
+</div>
+
+<div class='column2' >
+    <div>
+        <h1>reviews</h1>
+        {% for review in reviews %}
+        <article class="message is-primary">
+            <div class="message-header">
+            <p>by:{{review.user_id.username}}</p>
+            <p>Review:{{review.text}}</p>
+            <p>Rating:{{review.rating}}</p>
+            <a href={{url_for('delete_review', barberid=barber.id, id=review.id)}}>delete</a>
+            <a href={{url_for('edit_review', barberid=barber.id, id=review.id)}}>edit</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div> 
+</section>
+
+{% endblock %}
