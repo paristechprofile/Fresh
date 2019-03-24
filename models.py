@@ -19,7 +19,7 @@ from flask import g
 DATABASE = Proxy()
 
 if 'HEROKU' in os.environ:
-  psql_db = PostgresqlDatabase('fresh', user='paristaylor')
+  psql_db = PostgresqlDatabase('d75hp2sa19h0eq', user='pesbjowuflgiha')
   # import urlparse, psycopg2
   # urlparse.uses_netloc.append('postgres')
   # url = urlparse.urlparse(os.environ["DATABASE_URL"])
