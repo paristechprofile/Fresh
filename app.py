@@ -36,10 +36,10 @@ class Neighborhood:
     self.long = long
 
 neighborhoods = (
-  Neighborhood('md', 'MISSION DISTRICT', 37.7648532,-122.4222631),
+  Neighborhood('md', 'Mission District', 37.7648532,-122.4222631),
   Neighborhood('soma', 'SOMA', 37.7785951,-122.3892698),
-  Neighborhood('dp', 'DOGPATCH', 37.7647382,-122.3883884),
-  Neighborhood('ga', 'GENERAL ASSEMBLY', 37.7908727,-122.4012966)
+  Neighborhood('dp', 'Dogpatch', 37.7647382,-122.3883884),
+  Neighborhood('ga', 'General Assembly', 37.7908727,-122.4012966)
 )
 
 neighborhoods_by_key = {neighborhood.key: neighborhood for neighborhood in neighborhoods}
@@ -138,15 +138,38 @@ def post():
 @app.route('/barbers')
 @app.route('/barbers/<id>/', methods=['GET', 'POST'])
 def barbers(id=None):
-  if request.args.get('neighborhood') == 'choose':
-    neighborhood_code = "ga"
+  form = forms.PostForm()
+  if request.args.get('neighborhood') == None:
+      neighborhood_code = "ga"
   else:
     neighborhood_code = request.args.get('neighborhood')
-  neighborhood = neighborhoods_by_key.get(neighborhood_code)
-  form = forms.PostForm()
   if id == None:
-    barbers = models.Barber.select().limit(100)
-    return render_template('barbers.html', barbers=barbers, form=form, neighborhood = neighborhood)
+    if (request.args.get('name') == None):
+      neighborhood = neighborhoods_by_key.get(neighborhood_code)
+      barbers = models.Barber.select().limit(100)      
+      return render_template('barbers.html', barbers=barbers, form=form, neighborhood = neighborhood)
+    else:
+      q_name = request.args.get('name')
+      neighborhood = neighborhoods_by_key.get(neighborhood_code)
+      q_neighborhood = neighborhood.name
+
+      print(q_name, '888888888888')
+      print(q_name, '888888888888')
+      print(q_name, '888888888888')
+      print(q_name, '888888888888')
+      print(q_name, '888888888888')
+
+      print(q_neighborhood, '999999999')
+      print(q_neighborhood, '999999999')
+      print(q_neighborhood, '999999999')
+      print(q_neighborhood, '999999999')
+      print(q_neighborhood, '999999999')
+
+
+      # barbers = models.Barber.select().limit(100)
+      barbers = models.Barber.select().where((models.Barber.name == q_name) & (models.Barber.neighborhood == q_neighborhood))
+      
+    return render_template('barbers.html', barbers=barbers, form=form, neighborhood=neighborhood)
   else:
     barber_param = int(id)
     barber = models.Barber.get(models.Barber.id == barber_param)

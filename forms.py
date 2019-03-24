@@ -71,6 +71,7 @@ class EditForm(Form):
 
 class PostForm(Form):
   content = TextAreaField("Enter Post here", validators=[DataRequired()])
+  name =  StringField('Enter Name')
   neighborhood = SelectField(u'Choose Neighborhood', choices=[('choose', 'Choose Your Hood'),
                                                               ('soma', 'Soma'), 
                                                               ('dp', 'Dogpatch'), 
