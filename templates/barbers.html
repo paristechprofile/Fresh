@@ -1,6 +1,18 @@
 {% extends "layout.html" %} 
-
 {% block content %}
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 425px;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 <div class="row jumbotron">
   <div class="col barbers">
     <h1 class="display-4">Invest In You</h1>
@@ -21,11 +33,37 @@
     <p>Find the best near you</p>
   </div>
 </div>   
+{{neighborhood.name}}
+<div id="map"></div>
+<script>
+  let lat = '{{neighborhood.lat}}'
+  lat = Number(lat)
+  let lng = '{{neighborhood.long}}'
+  console.log(lng)
+  lng = Number(lng)
+  console.log(typeof lat, typeof lng)
+  console.log(typeof lat, typeof lng)
+  console.log(typeof lat, typeof lng)
+  console.log(typeof lat, typeof lng)
 
+  console.log(lat, lng)
+  console.log(lat, lng)
+  console.log(lat, lng)
+  console.log(lat, lng)
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: lat, lng: lng},
+      zoom: 16
+    }); 
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcY0UTtJowvHdCRNyF9xB-6E6U9Okd6Ww&callback=initMap"
+async defer></script>
+</body>
 {% for barber in barbers %}
 <div class = "info">
 <div class="card mb-3">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="" class="card-img-top" alt="">
     <div class="card-body">
       <h5 class="card-title"><a href={{url_for('barbers', id=barber.id)}}>{{barber.name}}</a></h5>
       <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -46,8 +84,6 @@
     </div>
   </div>
 </div> -->
-
 {% endfor %} 
-
 {% endblock %}
 

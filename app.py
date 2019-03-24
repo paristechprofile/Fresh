@@ -25,6 +25,27 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+
+
+class Neighborhood:
+  def __init__(self, key, name, lat, long):
+    self.key = key
+    self.name = name
+    self.lat = lat
+    self.long = long
+
+neighborhoods = (
+  Neighborhood('md', 'MISSION DISTRICT', 37.7599373, -122.4343564),
+  Neighborhood('soma', 'SOMA', 37.7600025,-122.4343565),
+  Neighborhood('dp', 'DOGPATCH', 37.757241,-122.3983142),
+  Neighborhood('ga', 'GENERAL ASSEMBLY', 37.7906927,-122.4036279)
+)
+
+
+
+neighborhoods_by_key = {neighborhood.key: neighborhood for neighborhood in neighborhoods}
+
+
 @login_manager.user_loader
 def load_user(userid):
   try:
@@ -115,21 +136,23 @@ def post():
   return render_template('posts.html', form=form)
 
 @app.route('/barbers')
-@app.route('/barbers/<id>', methods=['GET', 'POST'])
+@app.route('/barbers/<id>/', methods=['GET', 'POST'])
 def barbers(id=None):
-
-  print(request.args.get('neighborhood'), 'OOOOOOO')
-  print(request.args.get('neighborhood'), 'OOOOOOO')
-  print(request.args.get('neighborhood'), 'OOOOOOO')
-  print(request.args.get('neighborhood'), 'OOOOOOO')
-  print(request.args.get('neighborhood'), 'OOOOOOO')
-  print(request.args.get('neighborhood'), 'OOOOOOO')
-
-
+  if request.args.get('neighborhood') == None:
+    neighborhood_code = "ga"
+  else:
+    neighborhood_code = request.args.get('neighborhood')
+  neighborhood = neighborhoods_by_key.get(neighborhood_code)
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
   form = forms.PostForm()
   if id == None:
     barbers = models.Barber.select().limit(100)
-    return render_template('barbers.html', barbers=barbers, form=form)
+    return render_template('barbers.html', barbers=barbers, form=form, neighborhood = neighborhood)
   else:
     barber_param = int(id)
     barber = models.Barber.get(models.Barber.id == barber_param)
@@ -147,6 +170,19 @@ def barbers(id=None):
 
 @app.route('/barbers/<barberid>/reviews/<id>/delete')
 def delete_review(barberid, id):
+  if request.args.get('neighborhood') == None:
+    neighborhood_code = "ga"
+  else:
+    neighborhood_code = request.args.get('neighborhood')
+  neghborhood = neighborhoods_by_key.get(neighborhood_code)
+
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+
   review_param = int(id)
   barber_param = int(barberid)
   review = models.Review.get_or_none(review_param)
@@ -159,10 +195,23 @@ def delete_review(barberid, id):
     return redirect(url_for('barbers', id=barber_param))
   else:
     flash('you cannot delete a review that is not yours')
-  return redirect(url_for('barbers', id=barber_param))
+  return redirect(url_for('barbers', id=barber_param, neighborhood = neighborhood))
 
 @app.route('/barbers/<barberid>/reviews/<id>/edit', methods=('GET', 'POST'))
 def edit_review(barberid, id):
+  if request.args.get('neighborhood') == None:
+    neighborhood_code = "ga"
+  else:
+    neighborhood_code = request.args.get('neighborhood')
+    neghborhood = neighborhoods_by_key.get(neighborhood_code)
+
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+  print(neighborhood, 'OOOOOOO')
+
   review_param = int(id)
   barber_param = int(barberid)
   review = models.Review.get(models.Review.id == review_param)
@@ -176,7 +225,7 @@ def edit_review(barberid, id):
     return redirect(url_for('barbers', id=barber_param))
   else: 
     flash('make sure to fill out both fields and that your review is 0-5')
-    return render_template("edit_form.html", id=barber_param, review=review, form=form)
+    return render_template("edit_form.html", id=barber_param, review=review, form=form, neighborhood = neighborhood)
 
 
 @app.route('/pay', methods = ['POST'])
