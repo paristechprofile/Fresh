@@ -1,5 +1,5 @@
-from flask import Flask, g, request
-from flask import render_template, flash, redirect, url_for
+from flask import Flask, g
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
 import json
@@ -9,6 +9,12 @@ from forms import ReviewForm
 from forms import EditForm
 from flask_bootstrap import Bootstrap
 import os
+import stripe
+
+pub_key = "pk_test_bm5f43zWX8BTqX267h5pKZWq00j0a49ep8"
+secret_key = "sk_test_in1qq2eEDnfmwYLXUHjRxSyG00jo5kNZDx"
+
+stripe.api_key = secret_key
 
 DEBUG = True
 PORT = 8000
@@ -19,6 +25,25 @@ app.secret_key = '!ohy.ouf.ancyh.uh?'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+
+
+class Neighborhood:
+  def __init__(self, key, name, lat, long):
+    self.key = key
+    self.name = name
+    self.lat = lat
+    self.long = long
+
+neighborhoods = (
+  Neighborhood('md', 'MISSION DISTRICT', 37.7648532,-122.4222631),
+  Neighborhood('soma', 'SOMA', 37.7785951,-122.3892698),
+  Neighborhood('dp', 'DOGPATCH', 37.7647382,-122.3883884),
+  Neighborhood('ga', 'GENERAL ASSEMBLY', 37.7908727,-122.4012966)
+)
+
+neighborhoods_by_key = {neighborhood.key: neighborhood for neighborhood in neighborhoods}
+
 
 @login_manager.user_loader
 def load_user(userid):
@@ -111,11 +136,17 @@ def post():
   return render_template('posts.html', form=form)
 
 @app.route('/barbers')
-@app.route('/barbers/<id>', methods=['GET', 'POST'])
+@app.route('/barbers/<id>/', methods=['GET', 'POST'])
 def barbers(id=None):
+  if request.args.get('neighborhood') == None:
+    neighborhood_code = "ga"
+  else:
+    neighborhood_code = request.args.get('neighborhood')
+  neighborhood = neighborhoods_by_key.get(neighborhood_code)
+  form = forms.PostForm()
   if id == None:
     barbers = models.Barber.select().limit(100)
-    return render_template('barbers.html', barbers=barbers)
+    return render_template('barbers.html', barbers=barbers, form=form, neighborhood = neighborhood)
   else:
     barber_param = int(id)
     barber = models.Barber.get(models.Barber.id == barber_param)
@@ -129,10 +160,16 @@ def barbers(id=None):
         rating=form.rating.data.strip()
         )
       flash("You created a review")
-    return render_template("barber.html", barber=barber, reviews=reviews,form=form)
+    return render_template("barber.html", barber=barber, reviews=reviews,form=form, pub_key=pub_key)
 
 @app.route('/barbers/<barberid>/reviews/<id>/delete')
 def delete_review(barberid, id):
+  if request.args.get('neighborhood') == None:
+    neighborhood_code = "ga"
+  else:
+    neighborhood_code = request.args.get('neighborhood')
+  neghborhood = neighborhoods_by_key.get(neighborhood_code)
+
   review_param = int(id)
   barber_param = int(barberid)
   review = models.Review.get_or_none(review_param)
@@ -145,10 +182,15 @@ def delete_review(barberid, id):
     return redirect(url_for('barbers', id=barber_param))
   else:
     flash('you cannot delete a review that is not yours')
-  return redirect(url_for('barbers', id=barber_param))
+  return redirect(url_for('barbers', id=barber_param, neighborhood = neighborhood))
 
 @app.route('/barbers/<barberid>/reviews/<id>/edit', methods=('GET', 'POST'))
 def edit_review(barberid, id):
+  if request.args.get('neighborhood') == None:
+    neighborhood_code = "ga"
+  else:
+    neighborhood_code = request.args.get('neighborhood')
+    neghborhood = neighborhoods_by_key.get(neighborhood_code)
   review_param = int(id)
   barber_param = int(barberid)
   review = models.Review.get(models.Review.id == review_param)
@@ -162,12 +204,25 @@ def edit_review(barberid, id):
     return redirect(url_for('barbers', id=barber_param))
   else: 
     flash('make sure to fill out both fields and that your review is 0-5')
-    return render_template("edit_form.html", id=barber_param, review=review, form=form)
+    return render_template("edit_form.html", id=barber_param, review=review, form=form, neighborhood = neighborhood)
 
 if 'ON_HEROKU' in os.environ:
   print('hitting ')
   models.initialize()
 
+@app.route('/pay', methods = ['POST'])
+def pay():
+  print(request.form)
+  customer = stripe.Customer.create(email = request.form['stripeEmail'], source = request.form['stripeToken'])
+
+  charge = stripe.Charge.create(
+    customer = customer.id,
+    amount = 999,
+    currency = 'usd',
+    description = 'A Haircut'
+  )
+  return 'You paid 9.99 for your haircut. Thanks!'
+  
 if __name__ == '__main__':
   models.initialize()
   try:

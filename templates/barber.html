@@ -50,5 +50,15 @@
     </div>
 </div> 
 </section>
-
+        <form action= {{url_for('pay')}} method="POST">
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="{{ pub_key }}"
+                data-amount="999"
+                data-name="Demo Site"
+                data-description="Example charge"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto">
+            </script>
+        </form>
 {% endblock %}
