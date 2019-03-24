@@ -16,7 +16,7 @@ from flask import g
 #                            host='10.1.0.9', port=5432)
 
 
-DATABASE = Proxy()
+DATABASE = connect(os.environ.get('DATABASE_URL'))
 
 if 'HEROKU' in os.environ:
   psql_db = PostgresqlDatabase('d75hp2sa19h0eq', user='pesbjowuflgiha')
@@ -24,7 +24,7 @@ if 'HEROKU' in os.environ:
   # urlparse.uses_netloc.append('postgres')
   # url = urlparse.urlparse(os.environ["DATABASE_URL"])
   # db = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
-  DATABASE.initialize(psql_db)
+  models.initialize()
 else:
   db = SqliteDatabase('fresh.db')
   DATABASE.initialize(db)
