@@ -3,7 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=flask
 ### db ###
 fresh.db
-fresh.dbsql
+fresh.dbsql 
 
 ### Flask ###
 instance/*
