@@ -41,8 +41,6 @@ neighborhoods = (
   Neighborhood('ga', 'GENERAL ASSEMBLY', 37.7908727,-122.4012966)
 )
 
-
-
 neighborhoods_by_key = {neighborhood.key: neighborhood for neighborhood in neighborhoods}
 
 
@@ -143,12 +141,6 @@ def barbers(id=None):
   else:
     neighborhood_code = request.args.get('neighborhood')
   neighborhood = neighborhoods_by_key.get(neighborhood_code)
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
   form = forms.PostForm()
   if id == None:
     barbers = models.Barber.select().limit(100)
@@ -176,13 +168,6 @@ def delete_review(barberid, id):
     neighborhood_code = request.args.get('neighborhood')
   neghborhood = neighborhoods_by_key.get(neighborhood_code)
 
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-
   review_param = int(id)
   barber_param = int(barberid)
   review = models.Review.get_or_none(review_param)
@@ -204,14 +189,6 @@ def edit_review(barberid, id):
   else:
     neighborhood_code = request.args.get('neighborhood')
     neghborhood = neighborhoods_by_key.get(neighborhood_code)
-
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-  print(neighborhood, 'OOOOOOO')
-
   review_param = int(id)
   barber_param = int(barberid)
   review = models.Review.get(models.Review.id == review_param)
@@ -240,8 +217,7 @@ def pay():
     description = 'A Haircut'
   )
   return 'You paid 9.99 for your haircut. Thanks!'
-
-
+  
 if __name__ == '__main__':
   models.initialize()
   try:
