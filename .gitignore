@@ -4,7 +4,7 @@
 
 ### db ###
 fresh.db
-fresh.dbsql
+fresh.dbsql 
 
 ### Flask ###
 instance/*
