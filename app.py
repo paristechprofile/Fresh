@@ -35,10 +35,10 @@ class Neighborhood:
     self.long = long
 
 neighborhoods = (
-  Neighborhood('md', 'MISSION DISTRICT', 37.7599373, -122.4343564),
-  Neighborhood('soma', 'SOMA', 37.7600025,-122.4343565),
-  Neighborhood('dp', 'DOGPATCH', 37.757241,-122.3983142),
-  Neighborhood('ga', 'GENERAL ASSEMBLY', 37.7906927,-122.4036279)
+  Neighborhood('md', 'MISSION DISTRICT', 37.7648532,-122.4222631),
+  Neighborhood('soma', 'SOMA', 37.7785951,-122.3892698),
+  Neighborhood('dp', 'DOGPATCH', 37.7647382,-122.3883884),
+  Neighborhood('ga', 'GENERAL ASSEMBLY', 37.7908727,-122.4012966)
 )
 
 
