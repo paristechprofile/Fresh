@@ -232,6 +232,9 @@ def edit_review(barberid, id):
 if 'ON_HEROKU' in os.environ:
   print('hitting ')
   models.initialize()
+else:
+  db = SqliteDatabase('fresh.db')
+  DATABASE.initialize(db)
 
 @app.route('/pay', methods = ['POST'])
 def pay():
