@@ -218,20 +218,11 @@ def pay():
     description = 'A Haircut'
   )
   return 'You paid 9.99 for your haircut. Thanks!'
-
+  
 if 'ON_HEROKU' in os.environ:
   print('hitting ')
   models.initialize()
-  try:
-    models.User.create_user(
-      username='paris',
-      email='fake@gmail.com',
-      password='whynot',
-      admin=True
-      )
-  except ValueError:
-    pass
-  app.run(debug=DEBUG, port=PORT)
+
   
 if __name__ == '__main__':
   models.initialize()
