@@ -71,11 +71,8 @@ class EditForm(Form):
 
 class PostForm(Form):
   content = TextAreaField("Enter Post here", validators=[DataRequired()])
-<<<<<<< HEAD
-=======
   neighborhood = SelectField(u'Choose Neighborhood', choices=[('soma', 'SOMA'), 
                                                               ('dp', 'DOGPATCH'), 
                                                               ('md', 'MISSION DISTRICT'), 
                                                               ('ga', 'GENERAL ASSEMBLY')])
   search = SubmitField('Search')
->>>>>>> chike_branch
