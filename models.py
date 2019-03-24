@@ -9,8 +9,25 @@ from flask import g
 # DATABASE_URL = os.environ['DATABASE_URL'] #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require') #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
 
-DATABASE = SqliteDatabase('fresh.db') #sqlite database
 # DATABASE = connect(os.environ.get('DATABASE_URL')) #for heroku database
+# DATABASE = SqliteDatabase('fresh.db') #sqlite database
+
+# pg_db = PostgresqlDatabase('fresh', user='paristaylor', password='secret',
+#                            host='10.1.0.9', port=5432)
+
+
+DATABASE = Proxy()
+
+if 'HEROKU' in os.environ:
+  psql_db = PostgresqlDatabase('fresh', user='paristaylor')
+  # import urlparse, psycopg2
+  # urlparse.uses_netloc.append('postgres')
+  # url = urlparse.urlparse(os.environ["DATABASE_URL"])
+  # db = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
+  DATABASE.initialize(psql_db)
+else:
+  db = SqliteDatabase('fresh.db')
+  DATABASE.initialize(db)
 
 class User(UserMixin, Model):
   username = CharField(unique=True)
