@@ -219,6 +219,7 @@ def pay():
   )
   return 'You paid 9.99 for your haircut. Thanks!'
   
+DATABASE = connect(os.environ.get('DATABASE_URL'))
 # if 'ON_HEROKU' in os.environ:
 #   print('hitting ')
 #   models.initialize()
@@ -228,10 +229,10 @@ if 'ON_HEROKU' in os.environ:
   # urlparse.uses_netloc.append('postgres')
   # url = urlparse.urlparse(os.environ["DATABASE_URL"])
   # db = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
-  models.initialize(psql_db)
+  DATABASE.initialize(psql_db)
 else:
   db = SqliteDatabase('fresh.db')
-  DATABASE.initialize(db)
+  models.initialize(db)
 
 if __name__ == '__main__':
   models.initialize()
