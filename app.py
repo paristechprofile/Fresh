@@ -138,7 +138,7 @@ def post():
 @app.route('/barbers')
 @app.route('/barbers/<id>/', methods=['GET', 'POST'])
 def barbers(id=None):
-  if request.args.get('neighborhood') == None:
+  if request.args.get('neighborhood') == 'choose':
     neighborhood_code = "ga"
   else:
     neighborhood_code = request.args.get('neighborhood')
