@@ -1,6 +1,6 @@
 # import the tools and fields we need
 from flask_wtf import FlaskForm as Form
-from wtforms import TextField, TextAreaField, StringField, PasswordField, SubmitField
+from wtforms import TextField, TextAreaField, StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email, Length, EqualTo)
 from models import Review
 from models import User
@@ -8,7 +8,6 @@ from models import User
 def username_exists(form, field):
   if User.select().where(User.username == field.data).exists():
     raise ValidationError('User with that username already exists.')
-
 
 def email_exists(form, field):
   if User.select().where(User.email == field.data).exists():
@@ -69,5 +68,11 @@ class EditForm(Form):
   ])
   submit = SubmitField('Save')
 
+
 class PostForm(Form):
   content = TextAreaField("Enter Post here", validators=[DataRequired()])
+  neighborhood = SelectField(u'Choose Neighborhood', choices=[('soma', 'SOMA'), 
+                                                              ('dp', 'DOGPATCH'), 
+                                                              ('md', 'MISSION DISTRICT'), 
+                                                              ('ga', 'GENERAL ASSEMBLY')])
+  search = SubmitField('Search')
