@@ -220,8 +220,8 @@ def pay():
   return 'You paid 9.99 for your haircut. Thanks!'
 
 if 'ON_HEROKU' in os.environ:
-    print('HITTING ON HEROKU ')
-    models.initialize()
+  print('HITTING ON HEROKU ')
+  models.initialize()
 
 if __name__ == '__main__':
   models.initialize()
