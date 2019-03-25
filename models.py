@@ -101,11 +101,11 @@ from playhouse.db_url import connect
 from flask import g
 import psycopg2
 
-DATABASE = PostgresqlDatabase('d75hp2sa19h0eq')
+# DATABASE = PostgresqlDatabase('fresh')
 
-# DATABASE = os.environ['DATABASE']
+DATABASE = os.environ['DATABASE']
 
-# conn = psycopg2.connect(DATABASE, sslmode='require')
+conn = psycopg2.connect(DATABASE, sslmode='require')
 
 # DATABASE_URL = os.environ['DATABASE_URL'] #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require') #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
@@ -115,13 +115,6 @@ DATABASE = PostgresqlDatabase('d75hp2sa19h0eq')
 
 # pg_db = PostgresqlDatabase('fresh', user='paristaylor', password='secret',
 #                            host='10.1.0.9', port=5432)
-
-
-# DATABASE = connect(os.environ.get('DATABASE_URL'))
-# DATABASE = SqliteDatabase('fresh.db') #sqlite database
-# DATABASE = PostgresqlDatabase('fresh')
-
-
 
 
 # if 'HEROKU' in os.environ:
