@@ -96,9 +96,10 @@ import os
 from peewee import *
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
+import psycopg2
 from playhouse.postgres_ext import PostgresqlExtDatabase
 from flask import g
-import psycopg2
+
 
 # DATABASE_URL = os.environ['DATABASE_URL'] #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require') #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
@@ -110,12 +111,12 @@ import psycopg2
 #                            host='10.1.0.9', port=5432)
 
 
-# DATABASE = connect(os.environ.get('DATABASE_URL'))
+DATABASE = connect(os.environ.get('DATABASE_URL'))
 # DATABASE = SqliteDatabase('fresh.db') #sqlite database
 # DATABASE = PostgresqlDatabase('fresh')
 
 
-DATABASE = PostgresqlExtDatabase('fresh')
+# DATABASE = PostgresqlExtDatabase('fresh')
 
 # if 'HEROKU' in os.environ:
 #   psql_db = PostgresqlDatabase('d75hp2sa19h0eq', user='pesbjowuflgiha')
