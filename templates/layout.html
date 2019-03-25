@@ -14,16 +14,15 @@
   <div class="container-fluid">
     <nav>
     <div class="row">
-      <div class="col-12">
+      <div class="col-2">
+        <ul class="nav">
+          <a class="nav-link" href="{{url_for('index')}}" title="Fresh">Fresh</a>
+        </ul>
+        </div>
+        <div class="col-10">
         <ul class="nav justify-content-end">
           <li class="nav-item">
             <a class="nav-link active" href="{{url_for('barbers')}}">Find A Barber</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
           </li>
           <li class="nav-item">
             {% if current_user.is_authenticated %}

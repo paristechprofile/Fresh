@@ -17,12 +17,12 @@ class RegisterForm(Form):
   username = StringField(
     'Username',
     validators=[
-        DataRequired(),
-        Regexp(
-          r'^[a-zA-Z0-9_]+$',
-          message=("Username should be one word, letters, numbers, and underscores only.")
-        ),
-        username_exists
+      DataRequired(),
+      Regexp(
+        r'^[a-zA-Z0-9_]+$',
+        message=("Username should be one word, letters, numbers, and underscores only.")
+      ),
+      username_exists
     ])
   email = StringField(
     'Email',
@@ -72,9 +72,10 @@ class EditForm(Form):
 class PostForm(Form):
   content = TextAreaField("Enter Post here", validators=[DataRequired()])
   name =  StringField('Enter Name')
-  neighborhood = SelectField(u'Choose Neighborhood', choices=[('choose', 'Choose Your Hood'),
-                                                              ('soma', 'Soma'), 
-                                                              ('dp', 'Dogpatch'), 
-                                                              ('md', 'Mission District'), 
-                                                              ('ga', 'General Assembly')])
+  neighborhood = SelectField(u'Choose Neighborhood', 
+  choices=[('choose', 'Choose Your Hood'),
+  ('soma', 'Soma'), 
+  ('dp', 'Dogpatch'), 
+  ('md', 'Mission District'), 
+  ('ga', 'General Assembly')])
   search = SubmitField('Search')

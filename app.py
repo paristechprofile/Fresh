@@ -21,6 +21,8 @@ PORT = 8000
 app = Flask(__name__)
 app.secret_key = '!ohy.ouf.ancyh.uh?'
 
+Bootstrap(app)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -86,13 +88,13 @@ def stream(username=None):
 def register():
   form = forms.RegisterForm()
   if form.validate_on_submit():
-    flash('You in bruh. Damn straight!', 'success')
     models.User.create_user(
       username=form.username.data,
       email=form.email.data,
       password=form.password.data
       )
-    return redirect(url_for('index'))
+    flash("You've been signed up, now just log-in", "success")
+    return redirect(url_for('login'))
   return render_template('register.html', form=form)
 
 @app.route('/login', methods=('GET', 'POST'))
@@ -106,7 +108,7 @@ def login():
     else:
       if check_password_hash(user.password, form.password.data):
         login_user(user)
-        flash("You've been logged in", "success")
+        flash('You in bruh. Damn straight!', 'success')
         return redirect(url_for('index'))
       else:
         flash("your email or password doesn't match", "error")

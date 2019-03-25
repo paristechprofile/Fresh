@@ -2,10 +2,6 @@
 
 * Goal: Nowadays barbers work at barbershops or anywhere else they can set up shop (i.e their/your apartment). Fresh is allowing Barbers to stay on the radar of potential customers. We give people the ability to search for barbers in their neighborhood by location and name.
 
-## Wireframes
-
-Also found here while publically available https://trello.com/b/zAkZUSTd/project-3
-
 ## User Stories
 - A barber can have a profile so that people can find them online and leave a review of the experience
 - A user can browse anonymously so that they see the barber options
@@ -18,11 +14,13 @@ Also found here while publically available https://trello.com/b/zAkZUSTd/project
 - A user can pay through the app so that they don't have to pay with cash or another payment system other than stripe
 Also found here while publically available https://trello.com/b/zAkZUSTd/project-3
 
+## Wireframes
+Also found here while publically available https://trello.com/b/zAkZUSTd/project-3
+
 ## Heroku Link
 https://fresh-barbers.herokuapp.com
 
 ## Technologies Used
-
 - Flask
 - Flask Login
 - Javascript
@@ -50,6 +48,7 @@ https://fresh-barbers.herokuapp.com
 - A user can browse so that they see barber options
 - User can filter for barbers by name and neighborhood
 - User can add only after login
+
 ## Core Technical Requirements
 Requirement met - Flask: Use Flask as the core framework for Python.
 Requirement met - PostgreSQL: Use PostgreSQL for your database in development and production.
@@ -66,13 +65,12 @@ Requirement met - Heroku: Deploy your app to Heroku. Ensure no app secrets are e
 Your app should have 3 out of the 5 following options:
 
 Requirement met - User Login Make sure you have authentication and authorization.
-Requirement met - AJAX Use AJAX to communicate with the server without reloading the page when appropriate.
-External APIs Use a third-party API back-end package to integrate third-party data into your app.
-JavaScript & jQuery: Add dynamic client-side behavior with event-driven functionality.
+AJAX Use AJAX to communicate with the server without reloading the page when appropriate.
+Requirement met - External APIs Use a third-party API back-end package to integrate third-party data into your app.
+Requirement met - JavaScript & jQuery: Add dynamic client-side behavior with event-driven functionality.
 User-Friendly URLs: Make pretty URLs that don't expose database IDs.
 
 ## Endpoints
-
 - API Endpoints
 1. '/'
   Home Page
@@ -101,7 +99,6 @@ User-Friendly URLs: Make pretty URLs that don't expose database IDs.
 - Barber UX to add New Barbers into Database (allow barbers to create a profile)
 
 ## Code Snippets
-
 https://docs.google.com/presentation/d/1wCmpj2-Hkzu6t9kcIpD2TMcSOnT8DfZuHb8rjT_hveY/edit#slide=id.g548456ec7d_0_7
 
 ## Contributor GitHubs
