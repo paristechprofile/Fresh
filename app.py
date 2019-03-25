@@ -204,7 +204,7 @@ def edit_review(barberid, id):
     return redirect(url_for('barbers', id=barber_param))
   else: 
     flash('make sure to fill out both fields and that your review is 0-5')
-    return render_template("edit_form.html", id=barber_param, review=review, form=form, neighborhood = neighborhood)
+    return render_template("edit_form.html", id=barber_param, review=review, form=form)
 
 if 'ON_HEROKU' in os.environ:
   print('hitting ')
