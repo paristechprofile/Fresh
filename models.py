@@ -6,28 +6,9 @@ from flask_bcrypt import generate_password_hash
 from playhouse.db_url import connect
 from flask import g
 
-# DATABASE_URL = os.environ['DATABASE_URL'] #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
-# conn = psycopg2.connect(DATABASE_URL, sslmode='require') #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
-
-# DATABASE = connect(os.environ.get('DATABASE_URL')) #for heroku database
-# DATABASE = SqliteDatabase('fresh.db') #sqlite database
-
-# pg_db = PostgresqlDatabase('fresh', user='paristaylor', password='secret',
-#                            host='10.1.0.9', port=5432)
-
-
-DATABASE = Proxy()
-
-if 'HEROKU' in os.environ:
-  psql_db = PostgresqlDatabase('fresh', user='paristaylor')
-  # import urlparse, psycopg2
-  # urlparse.uses_netloc.append('postgres')
-  # url = urlparse.urlparse(os.environ["DATABASE_URL"])
-  # db = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
-  DATABASE.initialize(psql_db)
-else:
-  db = SqliteDatabase('fresh.db')
-  DATABASE.initialize(db)
+DATABASE = connect(os.environ.get('DATABASE_URL'))
+# DATABASE = PostgresqlDatabase('fresh') #local postgres backup
+# DATABASE = SqliteDatabase('fresh.db') #local sqlitebackup if postgres is buggy
 
 class User(UserMixin, Model):
   username = CharField(unique=True)
@@ -38,15 +19,13 @@ class User(UserMixin, Model):
 
   class Meta:
     database = DATABASE
-  
   def get_posts(self):
     return Post.select().where(Post.user == self)
-
   def get_stream(self):
     return Post.select().where(
       (Post.user == self)
     )
-    
+
   @classmethod
   def create_user(cls, username, email, password, admin=False):
     try:
@@ -64,13 +43,8 @@ class Barber(Model):
   neighborhood = CharField()
   profile_pic = CharField()
   portfolio_pic = CharField()
-
   class Meta:
     database = DATABASE
-
-#############################################################
-#################### Review Model Methods ###################
-#############################################################
 
 class Review(Model):
   timestamp = DateTimeField(default=datetime.datetime.now)
@@ -78,7 +52,6 @@ class Review(Model):
   user_id = ForeignKeyField(User, backref='reviews')
   text = TextField()
   rating = CharField()
-
   class Meta:
     database = DATABASE
     order_by = ('-timestamp',)
@@ -90,7 +63,6 @@ class Post(Model):
     backref='posts'
   )
   content = TextField()
-
   class Meta:
     database = DATABASE
     order_by = ('-timestamp',)

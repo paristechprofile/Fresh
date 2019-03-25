@@ -13,7 +13,6 @@ import stripe
 
 pub_key = "pk_test_bm5f43zWX8BTqX267h5pKZWq00j0a49ep8"
 secret_key = "sk_test_in1qq2eEDnfmwYLXUHjRxSyG00jo5kNZDx"
-
 stripe.api_key = secret_key
 
 DEBUG = True
@@ -25,8 +24,6 @@ app.secret_key = '!ohy.ouf.ancyh.uh?'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
-
 
 class Neighborhood:
   def __init__(self, key, name, lat, long):
@@ -43,7 +40,6 @@ neighborhoods = (
 )
 
 neighborhoods_by_key = {neighborhood.key: neighborhood for neighborhood in neighborhoods}
-
 
 @login_manager.user_loader
 def load_user(userid):
@@ -86,7 +82,6 @@ def stream(username=None):
   if username:
     template = 'user_profile.html'
   return render_template(template, stream=stream, user=user)
-
 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
@@ -168,8 +163,7 @@ def delete_review(barberid, id):
     neighborhood_code = "ga"
   else:
     neighborhood_code = request.args.get('neighborhood')
-  neghborhood = neighborhoods_by_key.get(neighborhood_code)
-
+  neighborhood = neighborhoods_by_key.get(neighborhood_code) # tab this over if necessary
   review_param = int(id)
   barber_param = int(barberid)
   review = models.Review.get_or_none(review_param)
@@ -190,7 +184,7 @@ def edit_review(barberid, id):
     neighborhood_code = "ga"
   else:
     neighborhood_code = request.args.get('neighborhood')
-    neghborhood = neighborhoods_by_key.get(neighborhood_code)
+    neighborhood = neighborhoods_by_key.get(neighborhood_code)
   review_param = int(id)
   barber_param = int(barberid)
   review = models.Review.get(models.Review.id == review_param)
@@ -204,11 +198,7 @@ def edit_review(barberid, id):
     return redirect(url_for('barbers', id=barber_param))
   else: 
     flash('make sure to fill out both fields and that your review is 0-5')
-    return render_template("edit_form.html", id=barber_param, review=review, form=form, neighborhood = neighborhood)
-
-if 'ON_HEROKU' in os.environ:
-  print('hitting ')
-  models.initialize()
+    return render_template("edit_form.html", id=barber_param, review=review, form=form)
 
 @app.route('/pay', methods = ['POST'])
 def pay():
@@ -222,7 +212,10 @@ def pay():
     description = 'A Haircut'
   )
   return 'You paid 9.99 for your haircut. Thanks!'
-  
+if 'ON_HEROKU' in os.environ:
+  print('hitting ')
+  models.initialize()
+
 if __name__ == '__main__':
   models.initialize()
   try:
@@ -235,5 +228,3 @@ if __name__ == '__main__':
   except ValueError:
     pass
   app.run(debug=DEBUG, port=PORT)
-
-  
