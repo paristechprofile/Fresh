@@ -3,7 +3,7 @@
 .jumbotron{
   background-image: url("./images/straight-shave.jpg");
   background-size: 100%;
-  background-position: bottom; 
+  background-position: center; 
   opacity: .9;
   width: auto;
   height: 35em;

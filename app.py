@@ -51,7 +51,6 @@ def load_user(userid):
 @app.before_request
 def before_request():
   """Connect to the database before each request."""
-  # g.db = db_proxy #https://swifthorseman.com/2015/06/18/deploying-a-flask-app-with-peewee-to-heroku/
   g.db = models.DATABASE #peewee
   g.db.connect()
   g.user = current_user
