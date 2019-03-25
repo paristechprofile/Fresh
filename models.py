@@ -97,7 +97,7 @@ from peewee import *
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
 import psycopg2
-from playhouse.postgres_ext import PostgresqlExtDatabase
+from playhouse.db_url import connect
 from flask import g
 
 
