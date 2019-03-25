@@ -10,7 +10,7 @@ from forms import EditForm
 from flask_bootstrap import Bootstrap
 import os
 import stripe
-import psycopg2
+
 
 pub_key = "pk_test_bm5f43zWX8BTqX267h5pKZWq00j0a49ep8"
 secret_key = "sk_test_in1qq2eEDnfmwYLXUHjRxSyG00jo5kNZDx"
