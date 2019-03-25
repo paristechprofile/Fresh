@@ -110,8 +110,10 @@ from flask import g
 
 
 # DATABASE = connect(os.environ.get('DATABASE_URL'))
-DATABASE = SqliteDatabase('fresh.db') #sqlite database
-
+# DATABASE = SqliteDatabase('fresh.db') #sqlite database
+DATABASE = PostgresqlDatabase('fresh', user='pesbjowuflgiha', password='8dac388bea633a44dd3fe30443d9e81b7f3063ecd10a3c6af70d10485cbd5230',
+                           host='ec2-23-23-195-205.compute-1.amazonaws.com
+', port=5432)
 
 
 if 'HEROKU' in os.environ:
@@ -120,7 +122,7 @@ if 'HEROKU' in os.environ:
 #   # urlparse.uses_netloc.append('postgres')
 #   # url = urlparse.urlparse(os.environ["DATABASE_URL"])
   db = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
-  psql_db.initialize()
+  models.initialize()
 # else:
 #   db = SqliteDatabase('fresh.db')
 #   DATABASE.initialize(db)
