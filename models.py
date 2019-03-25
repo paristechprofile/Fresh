@@ -96,7 +96,7 @@ import os
 from peewee import *
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
-from playhouse.db_url import connect
+from playhouse.postgres_ext import PostgresqlExtDatabase
 from flask import g
 
 # DATABASE_URL = os.environ['DATABASE_URL'] #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
@@ -111,8 +111,10 @@ from flask import g
 
 # DATABASE = connect(os.environ.get('DATABASE_URL'))
 # DATABASE = SqliteDatabase('fresh.db') #sqlite database
-DATABASE = PostgresqlDatabase('fresh')
+# DATABASE = PostgresqlDatabase('fresh')
 
+
+DATABASE = PostgresqlExtDatabase('fresh')
 
 # if 'HEROKU' in os.environ:
 #   psql_db = PostgresqlDatabase('d75hp2sa19h0eq', user='pesbjowuflgiha')
