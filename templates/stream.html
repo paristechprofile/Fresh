@@ -1,22 +1,45 @@
 {% extends "layout.html" %}
-
 {% block content %}
-{% for post in stream %}
-      <div class="card" style="width: 18rem;">
-
-        <time data-time="{{ post.timestamp }}" class="distime" 
-        datetime="{{ post.timestamp.strftime('%m-%d-%Y') 
-        }}">
-        {{ post.timestamp.strftime('%Y-%m-%d %H:%M') }}
-        </time>
-          <h5 class="card-title">
-            <a class="btn btn-primary" href="{{ url_for('stream', 
-            username=post.user.username) }}">{{ post.user.username }}
-            </a>
-          </h5>
-        <div class="card-body">
-          <p class="card-text">{{ post.content }}</p>
+<h1>{{user.username}}</h1>
+<article class="message is-dark">
+  <div class="message-header">
+  </div>
+  <div class="message-body">
+    <time data-time="{{ user.joined_at }}" class="distime" 
+    datetime="{{ user.joined_at.strftime('%m-%d-%Y') 
+    }}">
+      <h6>Joined: {{user.joined_at.strftime('%m-%d-%Y') }}</h6>
+    </time>
+  </div>
+</article>
+  {% for post in stream %}
+    <div class="card" style="width: 18rem;">
+      <time data-time="{{ post.timestamp }}" class="distime" 
+      datetime="{{ post.timestamp.strftime('%m-%d-%Y') 
+      }}">
+      Posted: {{ post.timestamp.strftime('%m-%d-%Y %H:%M') }}
+      </time>
+        <h5 class="card-title">
+          <a class="btn btn-primary" href="{{ url_for('stream', 
+          username=post.user.username) }}">{{ post.user.username }}
+          </a>
+        </h5>
+      <div class="card-body">
+        <p class="card-text">{{ post.content }}</p>
+      </div>
+    </div>
+      {% endfor %}
+      <div class="row">
+        <div class="col">
+          {% with messages = get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+          {% for category, message in messages %}
+            <div class={{category}}>
+              {{ message }}
+            </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
         </div>
       </div>
-{% endfor %}
 {% endblock %}

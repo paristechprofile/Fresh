@@ -41,7 +41,6 @@
         </div>
         
     </div>
-
     <div class="row">
         <div class="col">
             {% with messages = get_flashed_messages(with_categories=True) %}
@@ -53,27 +52,25 @@
             {% endwith %}
         </div>
     </div>
-
     <div class="row">
-    <div class='col-12' >
-        <div>
-            <h1>reviews</h1>
-            {% for review in reviews %}
-            <article class="message is-primary">
-                <div class="message-header">
-                <p>by:{{review.user_id.username}}</p>
-                <p>Review:{{review.text}}</p>
-                <p>Rating:{{review.rating}}</p>
-                <a href={{url_for('delete_review', barberid=barber.id, id=review.id)}}>delete</a>
-                <a href={{url_for('edit_review', barberid=barber.id, id=review.id)}}>edit</a>
-                </div>
-            </article>
-            {% endfor %}
-        </div>
+        <div class='col-12' >
+            <div>
+                <h1>reviews</h1>
+                {% for review in reviews %}
+                <article class="message is-primary">
+                    <div class="message-header">
+                    <p>by:{{review.user_id.username}}</p>
+                    <p>Review:{{review.text}}</p>
+                    <p>Rating:{{review.rating}}</p>
+                    <a href={{url_for('delete_review', barberid=barber.id, id=review.id)}}>delete</a>
+                    <a href={{url_for('edit_review', barberid=barber.id, id=review.id)}}>edit</a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div> 
     </div> 
 </div> 
-    </div> 
-
 <div class="col-4">
         <form action= {{url_for('pay')}} method="POST">
             <script
