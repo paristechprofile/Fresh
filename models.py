@@ -98,6 +98,7 @@ from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
 from playhouse.postgres_ext import PostgresqlExtDatabase
 from flask import g
+import psycopg2
 
 # DATABASE_URL = os.environ['DATABASE_URL'] #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require') #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
