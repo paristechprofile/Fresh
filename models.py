@@ -101,9 +101,9 @@ from playhouse.db_url import connect
 from flask import g
 import psycopg2
 
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE = os.environ['DATABASE']
 
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+conn = psycopg2.connect(DATABASE, sslmode='require')
 
 # DATABASE_URL = os.environ['DATABASE_URL'] #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require') #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
