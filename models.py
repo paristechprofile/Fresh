@@ -103,7 +103,7 @@ import psycopg2
 
 # DATABASE = PostgresqlDatabase('fresh')
 
-DATABASE = os.environ['DATABASE']
+DATABASE = os.environ['PATH']
 
 conn = psycopg2.connect(DATABASE, sslmode='require')
 
