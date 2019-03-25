@@ -105,7 +105,7 @@ from flask import g
 
 DATABASE = connect(os.environ.get('DATABASE_URL'))
 
-# DATABASE_URL = os.environ['DATABASE_URL'] #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
+# DATABASE_URL = os.environ['DATABASE_URL' #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require') #heroku directions https://devcenter.heroku.com/articles/heroku-postgresql
 
 # DATABASE = connect(os.environ.get('DATABASE_URL')) #for heroku database

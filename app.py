@@ -191,7 +191,7 @@ def edit_review(barberid, id):
     neighborhood_code = "ga"
   else:
     neighborhood_code = request.args.get('neighborhood')
-    neghborhood = neighborhoods_by_key.get(neighborhood_code)
+    neighborhood = neighborhoods_by_key.get(neighborhood_code)
   review_param = int(id)
   barber_param = int(barberid)
   review = models.Review.get(models.Review.id == review_param)
