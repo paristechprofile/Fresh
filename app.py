@@ -221,6 +221,7 @@ def pay():
 
 if 'ON_HEROKU' in os.environ:
   print('HITTING ON HEROKU ')
+  models.initialize()
 
 if __name__ == '__main__':
   models.initialize()
