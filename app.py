@@ -206,6 +206,10 @@ def edit_review(barberid, id):
     flash('make sure to fill out both fields and that your review is 0-5')
     return render_template("edit_form.html", id=barber_param, review=review, form=form, neighborhood = neighborhood)
 
+if 'ON_HEROKU' in os.environ:
+  print('hitting ')
+  models.initialize()
+
 @app.route('/pay', methods = ['POST'])
 def pay():
   print(request.form)
@@ -218,11 +222,7 @@ def pay():
     description = 'A Haircut'
   )
   return 'You paid 9.99 for your haircut. Thanks!'
-
-if 'ON_HEROKU' in os.environ:
-  print('HITTING ON HEROKU ')
-  models.initialize()
-
+  
 if __name__ == '__main__':
   models.initialize()
   try:
