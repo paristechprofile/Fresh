@@ -109,8 +109,8 @@ from flask import g
 #                            host='10.1.0.9', port=5432)
 
 
-DATABASE = connect(os.environ.get('DATABASE_URL'))
-# DATABASE = SqliteDatabase('fresh.db') #sqlite database
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
+DATABASE = SqliteDatabase('fresh.db') #sqlite database
 
 
 
