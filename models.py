@@ -6,8 +6,8 @@ from flask_bcrypt import generate_password_hash
 from playhouse.db_url import connect
 from flask import g
 
-# DATABASE = connect(os.environ.get('DATABASE_URL'))
-DATABASE = PostgresqlDatabase('fresh') #local postgres backup
+DATABASE = connect(os.environ.get('DATABASE_URL'))
+# DATABASE = PostgresqlDatabase('fresh') #local postgres backup
 # DATABASE = SqliteDatabase('fresh.db') #local sqlitebackup if postgres is buggy
 
 class User(UserMixin, Model):

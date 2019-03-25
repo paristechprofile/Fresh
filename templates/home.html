@@ -1,20 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-  <div class="row ">
+  <div class="row">
     <div class="col jumbotron">
       <h1 class="display-4">Fresh Membership</h1>
       <p class="lead">An edge over the competition starting at $99/month</p>
       <hr class="my-4">
       <p>Grab your monthly membership now</p>
       <a class="btn btn-dark btn-lg" href="#" role="button">Learn more</a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div>
-    </div>
-      <h1>{% if current_user.is_authenticated %} Hello {{current_user.username}} {%endif%}</h1>
-      <a href="{{ url_for('index') }}">Word On The Street</a>
     </div>
   </div>
   <div class="row">
@@ -28,8 +20,24 @@
       {% endwith %}
     </div>
   </div>
-
+  <div class="row belowFold">
+      <div class="col-12 belowFold2">
+        <h1>Good cuts cost too much… so we fixed it.</h1>
+      </div>
+    <div class="row callouts">
+    <div class="col-3 callouts">
+      <h4>Premium Cuts</h4>
+    - Quality is always 100% guaranteed
+    </div>
+    <div class="col-3 callouts">
+      <h4>Founders Who Give a Shave</h4>
+      “We’ve been good friends since we were bootcamp colleagues, and we’ve built Fresh to reflect our passions and values: affinity for simple design, appreciation of the useful useful, and a belief that companies should make the world a better place.”
+      <p>– Team Fresh</p>
+      </div>
+    <div class="col-3 callouts">
+      <h4>Fair Prices</h4>
+      <p>- Cuts for just $20 each</p>
+      <p>- Zero upcharging </p>
     </div>
   </div>
-</div>
 {% endblock %}

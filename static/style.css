@@ -1,4 +1,15 @@
-
+.container-fluid{
+  padding: 0em;
+}
+h1{
+  height: 2em;
+}
+nav{
+  /* display: flex; */
+  height: 3em;
+  /* align-content: center; */
+  /* align-items: center; */
+}
 /* Home Page */
 .jumbotron{
   background-image: url("./images/straight-shave.jpg");
@@ -9,11 +20,33 @@
   height: 35em;
   background-repeat: no-repeat;
 }
+.belowFold{
+  /* margin-bottom: 0em; */
+  text-align: center; 
+  height: 2em;
+}
+
+.belowFold2{
+  height: 8em;
+
+}
+.callouts{
+  justify-content: space-evenly;
+  align-content: center;
+  
+}
 /* Barbers Page */
 
 /* Barber Profile Page */
 .profilePic{
   width: 60%;
+}
+.pay{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
 }
 
 @media only screen and (max-width: 870px){

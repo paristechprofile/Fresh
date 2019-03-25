@@ -109,7 +109,7 @@ def login():
       if check_password_hash(user.password, form.password.data):
         login_user(user)
         flash('You in bruh. Damn straight!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('stream'))
       else:
         flash("your email or password doesn't match", "error")
   return render_template('login.html', form=form)
@@ -128,7 +128,7 @@ def post():
   if form.validate_on_submit():
     models.Post.create(user=g.user._get_current_object(), content=form.content.data.strip())
     flash("Message posted! Thanks!", "success")
-    return redirect(url_for('index'))
+    return redirect(url_for('stream'))
   return render_template('posts.html', form=form)
 
 @app.route('/barbers')

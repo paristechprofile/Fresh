@@ -47,7 +47,6 @@ class LoginForm(Form):
   email = StringField('Email', validators=[DataRequired(), Email()])
   password = PasswordField('Password', validators=[DataRequired()])
 
-# create the class and variables to house Field definitions
 class ReviewForm(Form):
   barber = StringField('Barber:')
   user = StringField('User:')
@@ -67,7 +66,6 @@ class EditForm(Form):
     )
   ])
   submit = SubmitField('Save')
-
 
 class PostForm(Form):
   content = TextAreaField("Enter Post here", validators=[DataRequired()])

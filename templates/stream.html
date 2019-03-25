@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>{{user.username}}</h1>
+<div class="row">
+  <div class="col">
+    <h1>{% if current_user.is_authenticated %} Hello {{current_user.username}} {%endif%}</h1>
+    <a href="{{ url_for('index') }}">Word On The Street</a>
+  </div>
+</div>
 <article class="message is-dark">
   <div class="message-header">
   </div>
